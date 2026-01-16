@@ -3,147 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>考研服务系统-全端高保真原型 V2.3</title>
+    <title>考研服务系统-全端炫酷高保真原型</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap');
-
-        body { font-family: 'PingFang SC', "Microsoft YaHei", sans-serif; background: #f4f7f9; margin: 0; }
-        
-        /* === 通用：右下角切换器 === */
-        .view-switcher { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); padding: 4px; border-radius: 50px; display: flex; gap: 4px; z-index: 9999; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); }
-        .view-btn { padding: 6px 14px; border-radius: 50px; color: #ccc; font-size: 12px; transition: all 0.2s; cursor: pointer; border: none; }
-        .view-btn.active { background: #2563eb; color: white; }
-
-        /* === PC端样式 === */
-        .nav-active { color: #2563eb; background: #eff6ff; border-right: 3px solid #2563eb; font-weight: 600; }
-        .stat-card { transition: all 0.3s ease; border: 1px solid #f0f0f0; }
-        .stat-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-color: #2563eb; }
-
-        /* === 企微侧边栏样式 === */
-        .wecom-sidebar { width: 360px; height: 100vh; background: #fff; border-left: 1px solid #e5e7eb; display: flex; flex-direction: column; }
-
-        /* === 学员端（手机外壳）样式 === */
-        .phone-case {
-            width: 375px; height: 780px; background: #000; border-radius: 50px; padding: 12px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); position: relative; border: 4px solid #333;
-        }
-        .screen {
-            width: 100%; height: 100%; background: #f8fafc; border-radius: 38px;
-            overflow: hidden; display: flex; flex-direction: column; position: relative;
-        }
-        .dynamic-island {
-            width: 110px; height: 25px; background: #000; border-radius: 20px;
-            position: absolute; top: 10px; left: 50%; transform: translateX(-50%); z-index: 100;
-        }
-        .tab-content { flex: 1; overflow-y: auto; padding-bottom: 80px; }
-        .tab-content::-webkit-scrollbar { display: none; }
-        
-        .mobile-nav-bar {
-            height: 70px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
-            border-top: 1px solid #eee; display: flex; justify-content: space-around;
-            align-items: center; position: absolute; bottom: 0; width: 100%; padding-bottom: 15px;
-        }
-        .mobile-nav-item { display: flex; flex-direction: column; align-items: center; gap: 4px; color: #94a3b8; cursor: pointer; }
-        .mobile-nav-item.active { color: #2563eb; }
-        .spark-gradient { background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body class="flex h-screen overflow-hidden">
 
     <div id="view-pc" class="flex flex-1 w-full">
-        <aside class="w-60 bg-white border-r flex flex-col shadow-sm">
-            <div class="p-6 text-xl font-black text-blue-600 tracking-tight flex items-center gap-2">
-                <i class="fas fa-book-reader"></i> 考研智航后台
+        <aside class="w-64 flex flex-col">
+            <div class="p-8 flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/50">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span class="text-white font-black text-xl tracking-tighter">考研智航</span>
             </div>
-            <nav class="flex-1 px-3 space-y-1">
-                <div onclick="showPage('home')" id="nav-home" class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-50 nav-active">
-                    <i class="fas fa-chart-pie w-5"></i> 首页看板
+            <nav class="flex-1 mt-4">
+                <div onclick="showPage('home')" id="nav-home" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer nav-active">
+                    <i class="fas fa-th-large w-5"></i><span class="font-semibold text-sm">首页看板</span>
                 </div>
-                <div onclick="showPage('student')" id="nav-student" class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-50 text-gray-600">
-                    <i class="fas fa-users w-5"></i> 学员管理
+                <div onclick="showPage('student')" id="nav-student" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+                    <i class="fas fa-users w-5"></i><span class="font-semibold text-sm">学员管理</span>
                 </div>
-                <div onclick="showPage('task')" id="nav-task" class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-50 text-gray-600">
-                    <i class="fas fa-tasks w-5"></i> 任务管理
-                </div>
-                <div onclick="showPage('punch')" id="nav-punch" class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-50 text-gray-600">
-                    <i class="fas fa-calendar-check w-5"></i> 打卡管理
-                </div>
-                <div onclick="showPage('perf')" id="nav-perf" class="flex items-center gap-3 p-3 rounded-lg cursor-pointer hover:bg-gray-50 text-gray-600">
-                    <i class="fas fa-award w-5"></i> 我的绩效
+                <div onclick="showPage('task')" id="nav-task" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+                    <i class="fas fa-tasks w-5"></i><span class="font-semibold text-sm">任务管理</span>
                 </div>
             </nav>
+            <div class="m-6 p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3">
+                <img src="avatar.jpeg" class="w-9 h-9 rounded-xl">
+                <div class="overflow-hidden"><p class="text-white text-xs font-bold truncate">张三老师</p><p class="text-gray-500 text-[9px] uppercase">高级二讲</p></div>
+            </div>
         </aside>
 
-        <main class="flex-1 flex flex-col min-w-0">
-            <header class="h-16 bg-white border-b px-8 flex items-center justify-between">
-                <h2 id="page-title" class="text-lg font-bold text-gray-800">首页看板</h2>
-                <div class="flex items-center gap-4 text-sm text-gray-500">
-                    <span>考研倒计时：</span>
-                    <span class="text-blue-600 font-bold">27考研·706天</span>
-                    <span class="text-blue-600 font-bold">28考研·1072天</span>
+        <main class="flex-1 flex flex-col min-w-0 bg-slate-50/50">
+            <header class="h-16 flex items-center justify-between px-10 bg-white/50 backdrop-blur-md border-b">
+                <h2 id="page-title" class="text-lg font-bold text-slate-800">首页看板</h2>
+                <div class="flex items-center gap-4 text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    <span id="current-date">2026年1月16日</span>
                 </div>
             </header>
-            <div id="pc-content" class="flex-1 overflow-y-auto p-8">
+            <div id="pc-content" class="flex-1 overflow-y-auto p-10">
                 </div>
         </main>
     </div>
 
-    <div id="view-wecom" class="hidden flex flex-1 justify-center items-center bg-gray-200">
-        <div class="wecom-sidebar shadow-2xl">
-            <div class="p-3 bg-[#f5f5f5] border-b text-xs flex justify-between">
-                <span class="text-gray-500 underline font-bold">学员详情</span>
-                <i class="fas fa-ellipsis-h text-gray-400"></i>
+    <div id="view-wecom" class="hidden flex flex-1 justify-center items-center bg-slate-200">
+        <div class="w-[360px] h-screen bg-white shadow-2xl flex flex-col border-x">
+            <div class="p-3 bg-slate-50 border-b flex justify-between items-center">
+                <span class="text-xs font-bold text-slate-500">学员详情 · 李萌萌</span>
+                <i class="fas fa-times text-slate-300 cursor-pointer" onclick="switchView('pc')"></i>
             </div>
-            <div class="p-4 flex items-center gap-3 border-b pb-4">
-                <div class="w-10 h-10 rounded bg-blue-500 flex items-center justify-center text-white font-bold text-lg">李</div>
+            <div class="p-5 flex items-center gap-4 border-b">
+                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xl">李</div>
                 <div>
-                    <div class="flex items-center gap-2">
-                        <span class="font-bold">李萌萌</span>
-                        <span class="text-[10px] bg-red-100 text-red-600 px-1 rounded">退费风险</span>
-                    </div>
-                    <p class="text-[11px] text-gray-400">ID: 98721 | 清华大学-计算机</p>
+                    <div class="flex items-center gap-2"><span class="font-bold">李萌萌</span><span class="text-[9px] bg-red-100 text-red-600 px-1 rounded font-black">退费风险</span></div>
+                    <p class="text-[10px] text-slate-400 mt-0.5">ID: 98721 | 清华大学-计算机</p>
                 </div>
             </div>
-            <div class="flex-1 overflow-y-auto bg-white">
+            <div class="flex-1 overflow-y-auto">
                 <div class="flex border-b text-xs sticky top-0 bg-white z-10">
                     <div class="flex-1 py-3 text-center border-b-2 border-blue-600 text-blue-600 font-bold">TODO</div>
-                    <div class="flex-1 py-3 text-center text-gray-500">计划</div>
-                    <div class="flex-1 py-3 text-center text-gray-500">打卡</div>
+                    <div class="flex-1 py-3 text-center text-slate-400">计划</div>
+                    <div class="flex-1 py-3 text-center text-slate-400">打卡</div>
                 </div>
                 <div class="p-4 space-y-3">
-                    <div class="p-3 bg-gray-50 rounded-lg border-l-4 border-orange-500 shadow-sm">
-                        <p class="text-xs font-bold mb-1">修改高数基础学习计划</p>
-                        <p class="text-[10px] text-gray-400">来源: 老师待办 | 2026-01-16</p>
+                    <div class="p-3 bg-orange-50 rounded-xl border-l-4 border-orange-400">
+                        <p class="text-xs font-bold text-orange-800">修改高数基础学习计划</p>
+                        <p class="text-[9px] text-orange-400 mt-1">截止：今日 18:00</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="view-mobile" class="hidden flex flex-1 justify-center items-center bg-gray-100 py-10">
+    <div id="view-mobile" class="hidden flex flex-1 justify-center items-center bg-slate-100 py-10">
         <div class="phone-case">
             <div class="dynamic-island"></div>
             <div class="screen">
-                <div id="mobile-home" class="tab-content">
-                    <div class="spark-gradient p-8 pt-12 text-white rounded-b-[40px] shadow-lg">
+                <div id="mobile-home" class="tab-content animate-up">
+                    <div class="spark-gradient p-8 pt-14 text-white rounded-b-[45px] shadow-xl">
                         <div class="flex justify-between items-start">
-                            <div>
-                                <p class="text-blue-100 text-xs font-bold uppercase tracking-wider">距离2027考研</p>
-                                <h1 class="text-5xl font-black mt-1">706<span class="text-lg font-normal ml-1">天</span></h1>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <i class="fas fa-fire text-4xl text-orange-400 animate-pulse"></i>
-                                <p class="text-[10px] mt-1 font-bold">LV.3</p>
-                            </div>
+                            <div><p class="text-blue-100 text-[10px] font-black uppercase tracking-widest">距离2027考研</p><h1 class="text-5xl font-black mt-1">706<span class="text-sm font-normal ml-1 opacity-60">天</span></h1></div>
+                            <div class="flex flex-col items-center"><i class="fas fa-fire text-4xl text-orange-400 animate-pulse"></i><p class="text-[9px] font-black mt-1">LV.3</p></div>
+                        </div>
+                    </div>
+                    <div class="px-6 mt-8">
+                        <h3 class="font-black text-slate-800 text-lg mb-4">今日任务</h3>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
+                            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600"><i class="fas fa-book-open text-sm"></i></div>
+                            <div class="flex-1"><p class="font-bold text-slate-800 text-xs">英语长难句精读</p><p class="text-[9px] text-slate-400">30分钟 · 日常计划</p></div>
+                            <button class="bg-blue-600 text-white text-[10px] px-3 py-1.5 rounded-full font-bold shadow-lg shadow-blue-100">去完成</button>
                         </div>
                     </div>
                 </div>
                 <div class="mobile-nav-bar">
-                    <div class="mobile-nav-item active" onclick="switchMobileTab('home', this)">
-                        <i class="fas fa-home text-xl"></i><span class="text-[10px]">首页</span>
+                    <div class="mobile-nav-item active"><i class="fas fa-home text-lg"></i><span>首页</span></div>
+                    <div class="mobile-nav-item"><i class="fas fa-calendar-alt text-lg"></i><span>记录</span></div>
+                    <div class="mobile-nav-item"><i class="fas fa-trophy text-lg"></i><span>排行</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学员详情抽屉 -->
+    <div id="drawer-overlay" class="drawer-overlay" onclick="closeStudentDrawer()"></div>
+    <div id="student-drawer" class="drawer">
+        <div class="drawer-header">
+            <span class="text-xs font-bold text-slate-500">学员详情 · <span id="drawer-student-name">李萌萌</span></span>
+            <i class="fas fa-times text-slate-300 cursor-pointer hover:text-slate-500" onclick="closeStudentDrawer()"></i>
+        </div>
+        <div class="drawer-body">
+            <div class="p-5 flex items-center gap-4 border-b">
+                <div class="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-black text-xl" id="drawer-avatar">李</div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold" id="drawer-name">李萌萌</span>
+                        <span class="text-[9px] bg-red-100 text-red-600 px-1 rounded font-black">退费风险</span>
                     </div>
+                    <p class="text-[10px] text-slate-400 mt-0.5">ID: <span id="drawer-id">98721</span> | <span id="drawer-school">清华大学</span>-<span id="drawer-major">计算机</span></p>
+                </div>
+            </div>
+            <div class="flex border-b text-xs sticky top-0 bg-white z-10">
+                <div class="flex-1 py-3 text-center border-b-2 border-blue-600 text-blue-600 font-bold">TODO</div>
+                <div class="flex-1 py-3 text-center text-slate-400">计划</div>
+                <div class="flex-1 py-3 text-center text-slate-400">打卡</div>
+            </div>
+            <div class="p-4 space-y-3">
+                <div class="p-3 bg-orange-50 rounded-xl border-l-4 border-orange-400">
+                    <p class="text-xs font-bold text-orange-800">修改高数基础学习计划</p>
+                    <p class="text-[9px] text-orange-400 mt-1">截止：今日 18:00</p>
                 </div>
             </div>
         </div>
@@ -159,140 +147,78 @@
         const pcContent = document.getElementById('pc-content');
         const pageTitle = document.getElementById('page-title');
 
-        // === 1. PC 页面渲染逻辑 ===
         const pages = {
             home: `
-                <div class="flex justify-between items-center mb-8 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <div>
-                        <h1 class="text-2xl font-bold text-gray-800">下午好，张三老师！👋</h1>
-                        <p class="text-sm text-gray-400 mt-1">开启高效办公的一天，加油！</p>
-                    </div>
-                    <div class="text-right">
-                        <p class="text-sm font-medium text-gray-500">2026年1月16日 星期五</p>
-                        <div class="flex gap-4 mt-2">
-                            <div class="bg-blue-50 px-3 py-1 rounded-lg">
-                                <span class="text-xs text-blue-400">距离27考研</span>
-                                <span class="text-sm font-bold text-blue-600 ml-1">706天</span>
-                            </div>
-                            <div class="bg-indigo-50 px-3 py-1 rounded-lg">
-                                <span class="text-xs text-indigo-400">距离28考研</span>
-                                <span class="text-sm font-bold text-indigo-600 ml-1">1072天</span>
-                            </div>
+                <div class="animate-up">
+                    <div class="welcome-banner p-10 text-white flex justify-between items-center mb-10 shadow-xl relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h1 class="text-3xl font-black tracking-tight mb-1">下午好，张三老师！👋</h1>
+                            <p class="text-white/60 text-sm font-medium">今天有 <span class="text-white underline">24</span> 项待办任务需要跟进。</p>
                         </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-5 gap-6">
-                    <div class="bg-white p-6 rounded-xl shadow-sm stat-card cursor-pointer" onclick="showPage('task')">
-                        <p class="text-gray-400 text-xs font-bold mb-3 uppercase tracking-wider">今日待办数量</p>
-                        <div class="flex items-baseline gap-2 mb-4">
-                            <span class="text-3xl font-black text-gray-800">24</span>
-                            <span class="text-xs text-gray-400">个任务</span>
-                        </div>
-                        <div class="space-y-2">
-                            <div class="flex justify-between text-[10px]">
-                                <span class="text-red-500">P0 紧急</span>
-                                <span class="font-bold">15%</span>
+                        <div class="flex gap-4 relative z-10">
+                            <div class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 text-center">
+                                <p class="text-[9px] font-black opacity-50 uppercase mb-1">距离 27 考研</p>
+                                <p class="text-xl font-black">706 <span class="text-xs font-normal opacity-50">天</span></p>
                             </div>
-                            <div class="w-full bg-gray-100 h-1 rounded-full overflow-hidden">
-                                <div class="bg-red-500 h-full" style="width: 15%"></div>
-                            </div>
-                            <div class="flex justify-between text-[10px]">
-                                <span class="text-blue-500">P1 常规</span>
-                                <span class="font-bold">60%</span>
+                            <div class="bg-white/10 backdrop-blur-md px-6 py-3 rounded-2xl border border-white/10 text-center">
+                                <p class="text-[9px] font-black opacity-50 uppercase mb-1">距离 28 考研</p>
+                                <p class="text-xl font-black">1072 <span class="text-xs font-normal opacity-50">天</span></p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm stat-card cursor-pointer" onclick="showPage('student')">
-                        <p class="text-gray-400 text-xs font-bold mb-3 uppercase tracking-wider">当前带班量</p>
-                        <div class="flex items-baseline gap-2 mb-4">
-                            <span class="text-3xl font-black text-gray-800">482</span>
-                            <span class="text-xs text-gray-400">总人数</span>
+                    <div class="grid grid-cols-5 gap-6">
+                        <div class="glass-card p-6 rounded-3xl cursor-pointer" onclick="showPage('task')">
+                            <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-4">今日待办数量</p>
+                            <h2 class="text-4xl font-black text-slate-800 mb-6">24</h2>
+                            <div class="flex justify-between text-[10px] font-bold mb-1"><span class="text-red-500">P0 紧急占比</span><span>15%</span></div>
+                            <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden"><div class="bg-red-500 h-full" style="width: 15%"></div></div>
                         </div>
-                        <div class="flex gap-2">
-                            <div class="flex-1 text-center bg-blue-50 py-1 rounded">
-                                <p class="text-[10px] text-blue-400">27届</p>
-                                <p class="text-xs font-bold text-blue-600">85%</p>
-                            </div>
-                            <div class="flex-1 text-center bg-indigo-50 py-1 rounded">
-                                <p class="text-[10px] text-indigo-400">28届</p>
-                                <p class="text-xs font-bold text-indigo-600">15%</p>
-                            </div>
+                        <div class="glass-card p-6 rounded-3xl cursor-pointer" onclick="showPage('student')">
+                            <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-4">当前带班量</p>
+                            <h2 class="text-4xl font-black text-slate-800 mb-6">482</h2>
+                            <div class="flex gap-2"><div class="flex-1 bg-blue-50 p-2 rounded-xl text-center"><p class="text-[9px] text-blue-400 font-bold">27届</p><p class="text-xs font-black text-blue-700">85%</p></div><div class="flex-1 bg-indigo-50 p-2 rounded-xl text-center"><p class="text-[9px] text-indigo-400 font-bold">28届</p><p class="text-xs font-black text-indigo-700">15%</p></div></div>
                         </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm stat-card border-red-50 cursor-pointer" onclick="showPage('student')">
-                        <p class="text-red-500 text-xs font-bold mb-3 uppercase tracking-wider">退费风险人数</p>
-                        <div class="flex items-baseline gap-2 mb-2">
-                            <span class="text-3xl font-black text-red-600">12</span>
-                            <span class="text-xs text-red-400 font-bold">↑ 2</span>
+                        <div class="glass-card p-6 rounded-3xl border-red-100 cursor-pointer" onclick="showRiskStudents()">
+                            <p class="text-red-400 text-[10px] font-black uppercase tracking-widest mb-4">退费风险人数</p>
+                            <div class="flex items-baseline gap-2 mb-4"><h2 class="text-4xl font-black text-red-600">12</h2><span class="text-[10px] text-red-400 font-bold">↑ 2</span></div>
+                            <p class="text-[9px] text-slate-400 leading-relaxed">检测到近期完课率波动的学员。</p>
                         </div>
-                        <p class="text-[10px] text-gray-400 leading-relaxed">请及时跟进风险学员，查看详情进行挽回。</p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm stat-card">
-                        <p class="text-gray-400 text-xs font-bold mb-3 uppercase tracking-wider">平均完课率</p>
-                        <div class="flex items-baseline gap-2 mb-4">
-                            <span class="text-3xl font-black text-green-600">78.5%</span>
+                        <div class="glass-card p-6 rounded-3xl">
+                            <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-4">平均完课率</p>
+                            <h2 class="text-4xl font-black text-green-600 mb-6">78.5%</h2>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden"><div class="bg-green-500 h-full" style="width: 78.5%"></div></div>
                         </div>
-                        <div class="w-full bg-gray-100 h-2 rounded-full overflow-hidden">
-                            <div class="bg-green-500 h-full" style="width: 78.5%"></div>
-                        </div>
-                        <p class="text-[10px] text-gray-400 mt-2 text-right">较上月 +3.2%</p>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm stat-card">
-                        <p class="text-gray-400 text-xs font-bold mb-3 uppercase tracking-wider">本月业绩</p>
-                        <div class="flex items-baseline gap-1 mb-1">
-                            <span class="text-xs text-gray-400">¥</span>
-                            <span class="text-2xl font-black text-gray-800">82,400</span>
-                        </div>
-                        <p class="text-[10px] text-gray-400 mb-3">目标：¥120,000</p>
-                        <div class="flex items-center gap-2">
-                            <div class="flex-1 bg-gray-100 h-1.5 rounded-full overflow-hidden">
-                                <div class="bg-blue-600 h-full" style="width: 68%"></div>
-                            </div>
-                            <span class="text-xs font-bold text-blue-600">68%</span>
+                        <div class="glass-card p-6 rounded-3xl">
+                            <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-4">本月业绩</p>
+                            <h2 class="text-2xl font-black text-slate-800 mb-2">¥82,400</h2>
+                            <p class="text-[9px] text-slate-400 mb-3 font-bold uppercase tracking-tighter">目标：120,000</p>
+                            <div class="flex items-center gap-2"><div class="flex-1 bg-slate-100 h-1 rounded-full"><div class="bg-blue-600 h-full" style="width: 68%"></div></div><span class="text-[9px] font-black text-blue-600">68%</span></div>
                         </div>
                     </div>
                 </div>
             `,
             student: `
-                <div class="flex gap-6 mb-8">
-                    <div class="flex-1 bg-white p-5 rounded-xl border border-blue-50 flex items-center gap-4 shadow-sm stat-card cursor-pointer">
-                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600"><i class="fas fa-user-friends"></i></div>
-                        <div><p class="text-xs text-gray-400 font-bold">当前总带班量</p><p class="text-2xl font-black">482 <span class="text-xs font-normal">人</span></p></div>
+                <div class="animate-up">
+                    <div class="flex justify-between items-center mb-8">
+                        <div class="flex gap-4">
+                            <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-4"><div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600"><i class="fas fa-users"></i></div><div><p class="text-[9px] text-slate-400 font-bold uppercase">带班总量</p><p class="text-lg font-black">482</p></div></div>
+                            <div id="risk-card" class="glass-card px-6 py-4 rounded-2xl flex items-center gap-4 border-red-100"><div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center text-red-600"><i class="fas fa-user-shield"></i></div><div><p class="text-[9px] text-red-400 font-bold uppercase">风险学员</p><p class="text-lg font-black text-red-600">12</p></div></div>
+                        </div>
                     </div>
-                    <div class="flex-1 bg-white p-5 rounded-xl border border-red-50 flex items-center gap-4 shadow-sm stat-card cursor-pointer">
-                        <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600"><i class="fas fa-user-slash"></i></div>
-                        <div><p class="text-xs text-red-500 font-bold italic">退费风险人数</p><p class="text-2xl font-black text-red-600">12 <span class="text-xs font-normal">人</span></p></div>
+                    <div class="glass-card rounded-[32px] overflow-hidden">
+                        <table class="w-full text-left text-xs"><thead class="bg-slate-50/50 border-b"><tr><th class="px-8 py-5 font-black text-slate-400 uppercase">学员姓名</th><th class="px-8 py-5 font-black text-slate-400 uppercase">目标院校/专业</th><th class="px-8 py-5 font-black text-slate-400 uppercase">完课率</th><th class="px-8 py-5 text-right font-black text-slate-400 uppercase">操作</th></tr></thead>
+                        <tbody class="divide-y divide-slate-100"><tr><td class="px-8 py-5"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">萌</div><div><p class="font-bold">李萌萌</p><p class="text-[9px] text-slate-400">ID: 98721</p></div></div></td><td class="px-8 py-5 font-medium">清华大学 · 计算机</td><td class="px-8 py-5 text-red-500 font-black">15%</td><td class="px-8 py-5 text-right"><button class="text-blue-600 font-bold hover:underline" onclick="showStudentDrawer('李萌萌', '98721', '清华大学', '计算机', '15%')">查看详情</button></td></tr></tbody></table>
                     </div>
-                    <div class="flex-[1.5]"></div>
-                </div>
-                <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <table class="w-full text-left text-xs">
-                        <thead class="bg-gray-50 border-y">
-                            <tr><th class="p-4 font-bold">学员姓名</th><th class="p-4 font-bold">目标院校</th><th class="p-4 font-bold">完课率</th><th class="p-4 font-bold text-right">操作</th></tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-50">
-                            <tr>
-                                <td class="p-4"><b>李萌萌</b><br><span class="text-gray-300">ID: 98721</span></td>
-                                <td class="p-4">清华大学<br>计算机</td>
-                                <td class="p-4 font-bold text-red-600">15%</td>
-                                <td class="p-4 text-right"><button class="text-blue-600 font-bold hover:underline" onclick="switchView('wecom')">查看详情</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>`
         };
 
         function showPage(pageId) {
-            pcContent.innerHTML = pages[pageId] || `<div class="p-12 text-center text-gray-400">正在进入模块...</div>`;
-            const titles = {home:'首页看板', student:'学员管理', task:'任务管理', punch:'打卡管理', perf:'我的绩效'};
-            pageTitle.innerText = titles[pageId];
-            document.querySelectorAll('aside nav div').forEach(el => el.classList.remove('nav-active', 'text-gray-600'));
-            document.getElementById('nav-' + pageId).classList.add('nav-active');
+            pcContent.innerHTML = pages[pageId] || `<div class="p-20 text-center text-slate-300 font-bold uppercase tracking-widest">Page In Development</div>`;
+            const titles = {home:'首页看板', student:'学员管理', task:'任务管理'};
+            pageTitle.innerText = titles[pageId] || '系统模块';
+            document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('nav-active'));
+            const navEl = document.getElementById('nav-' + pageId);
+            if (navEl) navEl.classList.add('nav-active');
         }
 
         function switchView(view) {
@@ -306,14 +232,33 @@
             if(view === 'pc') showPage('home');
         }
 
-        function switchMobileTab(pageId, element) {
-            document.querySelectorAll('#view-mobile .tab-content').forEach(p => p.classList.add('hidden'));
-            document.getElementById('mobile-' + pageId).classList.remove('hidden');
-            document.querySelectorAll('.mobile-nav-item').forEach(item => item.classList.remove('active'));
-            element.classList.add('active');
+        function showRiskStudents() {
+            showPage('student');
+            setTimeout(() => { document.getElementById('risk-card').classList.add('ring-4', 'ring-red-500/20', 'border-red-500'); }, 100);
         }
 
-        // 初始化加载
+        function showStudentDrawer(name, id, school, major, completionRate) {
+            document.getElementById('drawer-student-name').textContent = name;
+            document.getElementById('drawer-name').textContent = name;
+            document.getElementById('drawer-id').textContent = id;
+            document.getElementById('drawer-school').textContent = school;
+            document.getElementById('drawer-major').textContent = major;
+            document.getElementById('drawer-avatar').textContent = name.charAt(0);
+            
+            const overlay = document.getElementById('drawer-overlay');
+            const drawer = document.getElementById('student-drawer');
+            overlay.classList.add('show');
+            drawer.classList.add('show');
+        }
+
+        function closeStudentDrawer() {
+            const overlay = document.getElementById('drawer-overlay');
+            const drawer = document.getElementById('student-drawer');
+            overlay.classList.remove('show');
+            drawer.classList.remove('show');
+        }
+
+        // 初始化
         showPage('home');
     </script>
 </body>
