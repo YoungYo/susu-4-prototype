@@ -274,3 +274,40 @@ aside { background: var(--sidebar-bg); }
 .filter-collapsed .filter-header #filter-chevron {
     transform: rotate(180deg);
 }
+
+/* === 表格样式优化 === */
+.student-table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.student-table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.student-table-wrapper::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.student-table-wrapper::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.student-table-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+table th.sticky-column,
+table td.sticky-column {
+    position: sticky;
+    right: 0;
+    background: white;
+    z-index: 10;
+}
+
+table thead th.sticky-column {
+    background: #f8fafc;
+    z-index: 20;
+}

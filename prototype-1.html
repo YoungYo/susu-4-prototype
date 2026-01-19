@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>考研服务系统-全端炫酷高保真原型</title>
+    <title>考研二讲工作台</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
@@ -16,7 +16,7 @@
                 <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/50">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <span class="text-white font-black text-xl tracking-tighter">考研智航</span>
+                <span class="text-white font-black text-xl tracking-tighter">考研二讲工作台</span>
             </div>
             <nav class="flex-1 mt-4">
                 <div onclick="showPage('home')" id="nav-home" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer nav-active">
@@ -202,7 +202,7 @@
                     <div class="flex justify-between items-center mb-8">
                         <div class="flex gap-4">
                             <div class="glass-card px-6 py-4 rounded-2xl flex items-center gap-4"><div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600"><i class="fas fa-users"></i></div><div><p class="text-[9px] text-slate-400 font-bold uppercase">带班总量</p><p class="text-lg font-black">482</p></div></div>
-                            <div id="risk-card" class="glass-card px-6 py-4 rounded-2xl flex items-center gap-4 border-red-100"><div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center text-red-600"><i class="fas fa-user-shield"></i></div><div><p class="text-[9px] text-red-400 font-bold uppercase">风险学员</p><p class="text-lg font-black text-red-600">12</p></div></div>
+                            <div id="risk-card" class="glass-card px-6 py-4 rounded-2xl flex items-center gap-4 border-red-100"><div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center text-red-600"><i class="fas fa-user-shield"></i></div><div><p class="text-[9px] text-red-400 font-bold uppercase">退费风险人数</p><p class="text-lg font-black text-red-600">12</p></div></div>
                         </div>
                     </div>
                     <div class="filter-form" id="filter-form">
@@ -299,8 +299,65 @@
                         </div>
                     </div>
                     <div class="glass-card rounded-[32px] overflow-hidden">
-                        <table class="w-full text-left text-xs"><thead class="bg-slate-50/50 border-b"><tr><th class="px-8 py-5 font-black text-slate-400 uppercase">学员姓名</th><th class="px-8 py-5 font-black text-slate-400 uppercase">目标院校/专业</th><th class="px-8 py-5 font-black text-slate-400 uppercase">完课率</th><th class="px-8 py-5 text-right font-black text-slate-400 uppercase">操作</th></tr></thead>
-                        <tbody id="student-table-body" class="divide-y divide-slate-100"><tr><td class="px-8 py-5"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">萌</div><div><p class="font-bold">李萌萌</p><p class="text-[9px] text-slate-400">ID: 98721</p></div></div></td><td class="px-8 py-5 font-medium">清华大学 · 计算机</td><td class="px-8 py-5 text-red-500 font-black">15%</td><td class="px-8 py-5 text-right"><button class="text-blue-600 font-bold hover:underline" onclick="showStudentDrawer('李萌萌', '98721', '清华大学', '计算机', '15%')">查看详情</button></td></tr></tbody></table>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs min-w-[2000px]">
+                                <thead class="bg-slate-50/50 border-b">
+                                    <tr>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">学员姓名</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">学员ID</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">学员手机号</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">班级ID</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">班级名称</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">本科院校/专业</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">目标院校/专业</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">完课率</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">是否上岸</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">上岸院校</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">上岸专业</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">好友关系</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">年级</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">已报科目</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">可扩科目</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">考试科目</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">第几次考研</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">备注</th>
+                                        <th class="px-4 py-4 text-right font-black text-slate-400 uppercase whitespace-nowrap sticky right-0 bg-slate-50/50">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="student-table-body" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td class="px-4 py-4">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-xs">萌</div>
+                                                <div>
+                                                    <p class="font-bold">李萌萌</p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-4 text-slate-600">98721</td>
+                                        <td class="px-4 py-4 text-slate-600">138****5678</td>
+                                        <td class="px-4 py-4 text-slate-600">C202701</td>
+                                        <td class="px-4 py-4 text-slate-600">27届计算机强化班</td>
+                                        <td class="px-4 py-4 text-slate-600">北京理工大学 · 软件工程</td>
+                                        <td class="px-4 py-4 font-medium">清华大学 · 计算机</td>
+                                        <td class="px-4 py-4 text-red-500 font-black">15%</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-slate-100 text-slate-600 px-2 py-1 rounded font-bold">否</span></td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded font-bold">是</span></td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded font-bold">27届</span></td>
+                                        <td class="px-4 py-4 text-slate-600">数学、英语</td>
+                                        <td class="px-4 py-4 text-slate-600">政治、专业课</td>
+                                        <td class="px-4 py-4 text-slate-600">数学、英语、政治、408</td>
+                                        <td class="px-4 py-4 text-slate-600">第1次</td>
+                                        <td class="px-4 py-4 text-slate-400 text-[10px] max-w-[150px] truncate" title="完课率较低，需要重点关注">完课率较低，需要重点关注</td>
+                                        <td class="px-4 py-4 text-right sticky right-0 bg-white">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs" onclick="showStudentDrawer('李萌萌', '98721', '清华大学', '计算机', '15%')">查看详情</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>`
         };
