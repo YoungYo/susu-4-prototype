@@ -11,33 +11,36 @@
 <body class="flex h-screen overflow-hidden">
 
     <div id="view-pc" class="flex flex-1 w-full">
-        <aside class="w-64 flex flex-col">
-            <div class="p-8 flex items-center gap-3">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/50">
+        <aside id="sidebar" class="w-64 flex flex-col transition-all duration-300 relative">
+            <div id="sidebar-header" class="p-8 flex items-center gap-3 relative">
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-500/50 flex-shrink-0">
                     <i class="fas fa-graduation-cap"></i>
                 </div>
-                <span class="text-white font-black text-xl tracking-tighter">考研二讲工作台</span>
+                <span class="text-white font-black text-xl tracking-tighter sidebar-text">考研二讲工作台</span>
+                <button onclick="toggleSidebar()" class="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 bg-white rounded-full shadow-lg flex items-center justify-center text-slate-600 hover:bg-blue-50 transition-colors z-10">
+                    <i class="fas fa-chevron-left text-xs sidebar-toggle-icon"></i>
+                </button>
             </div>
             <nav class="flex-1 mt-4">
                 <div onclick="showPage('home')" id="nav-home" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer nav-active">
-                    <i class="fas fa-th-large w-5"></i><span class="font-semibold text-sm">首页看板</span>
+                    <i class="fas fa-th-large w-5 flex-shrink-0"></i><span class="font-semibold text-sm sidebar-text">首页看板</span>
                 </div>
                 <div onclick="showPage('student')" id="nav-student" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
-                    <i class="fas fa-users w-5"></i><span class="font-semibold text-sm">学员管理</span>
+                    <i class="fas fa-users w-5 flex-shrink-0"></i><span class="font-semibold text-sm sidebar-text">学员管理</span>
                 </div>
                 <div onclick="showPage('task')" id="nav-task" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
-                    <i class="fas fa-tasks w-5"></i><span class="font-semibold text-sm">任务管理</span>
+                    <i class="fas fa-tasks w-5 flex-shrink-0"></i><span class="font-semibold text-sm sidebar-text">任务管理</span>
                 </div>
                 <div onclick="showPage('performance')" id="nav-performance" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
-                    <i class="fas fa-chart-bar w-5"></i><span class="font-semibold text-sm">我的绩效</span>
+                    <i class="fas fa-chart-bar w-5 flex-shrink-0"></i><span class="font-semibold text-sm sidebar-text">我的绩效</span>
                 </div>
                 <div onclick="showPage('plan')" id="nav-plan" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
-                    <i class="fas fa-book w-5"></i><span class="font-semibold text-sm">复习规划</span>
+                    <i class="fas fa-book w-5 flex-shrink-0"></i><span class="font-semibold text-sm sidebar-text">复习规划</span>
                 </div>
             </nav>
-            <div class="m-6 p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3">
-                <img src="avatar.jpeg" class="w-9 h-9 rounded-xl">
-                <div class="overflow-hidden"><p class="text-white text-xs font-bold truncate">张三</p></div>
+            <div id="sidebar-footer" class="m-6 p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3">
+                <img src="avatar.jpeg" class="w-9 h-9 rounded-xl flex-shrink-0">
+                <div class="overflow-hidden sidebar-text"><p class="text-white text-xs font-bold truncate">张三老师</p><p class="text-gray-500 text-[9px] uppercase">高级二讲</p></div>
             </div>
         </aside>
 
@@ -1850,6 +1853,12 @@
             console.log('规划数据:', planData);
             alert('复习规划保存功能已触发\n课程ID: ' + courseId + '\n规划条目数: ' + planData.length);
             closeAddPlanForm();
+        }
+
+        // 侧边栏收起/展开功能
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('collapsed');
         }
 
         // 初始化

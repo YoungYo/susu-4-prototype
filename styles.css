@@ -58,6 +58,50 @@ aside { background: var(--sidebar-bg); }
     color: #fff;
     box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4);
 }
+
+/* === 侧边栏收起样式 === */
+#sidebar.collapsed {
+    width: 80px;
+}
+
+#sidebar.collapsed .sidebar-text {
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* Logo区域居中 */
+#sidebar.collapsed #sidebar-header {
+    justify-content: center;
+    padding: 32px 0;
+}
+
+/* 菜单项居中 */
+#sidebar.collapsed .sidebar-item {
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+/* 用户信息区域居中 */
+#sidebar.collapsed #sidebar-footer {
+    justify-content: center;
+    padding: 16px 0;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+#sidebar.collapsed .sidebar-toggle-icon {
+    transform: rotate(180deg);
+}
+
+.sidebar-text {
+    transition: opacity 0.3s, width 0.3s;
+    white-space: nowrap;
+}
 .glass-card {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(12px);
