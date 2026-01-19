@@ -192,6 +192,23 @@ aside { background: var(--sidebar-bg); }
     max-width: 200px;
 }
 
+/* === 新增复习规划表单样式 === */
+#add-plan-modal {
+    z-index: 10003;
+}
+
+#add-plan-modal input,
+#add-plan-modal textarea {
+    transition: all 0.2s;
+}
+
+#add-plan-modal input:focus,
+#add-plan-modal textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
 /* === 筛选表单样式 === */
 .filter-form {
     background: rgba(255, 255, 255, 0.8);
