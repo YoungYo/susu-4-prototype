@@ -7,6 +7,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
+    <!-- React and Babel for lite.jsx -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body class="flex h-screen overflow-hidden">
 
@@ -86,31 +91,8 @@
     </div>
 
     <div id="view-mobile" class="hidden flex flex-1 justify-center items-center bg-slate-100 py-10">
-        <div class="phone-case">
-            <div class="dynamic-island"></div>
-            <div class="screen">
-                <div id="mobile-home" class="tab-content animate-up">
-                    <div class="spark-gradient p-8 pt-14 text-white rounded-b-[45px] shadow-xl">
-                        <div class="flex justify-between items-start">
-                            <div><p class="text-blue-100 text-[10px] font-black uppercase tracking-widest">距离2027考研</p><h1 class="text-5xl font-black mt-1">706<span class="text-sm font-normal ml-1 opacity-60">天</span></h1></div>
-                            <div class="flex flex-col items-center"><i class="fas fa-fire text-4xl text-orange-400 animate-pulse"></i><p class="text-[9px] font-black mt-1">LV.3</p></div>
-                        </div>
-                    </div>
-                    <div class="px-6 mt-8">
-                        <h3 class="font-black text-slate-800 text-lg mb-4">今日任务</h3>
-                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4">
-                            <div class="w-10 h-10 bg-blue-50 rounded-xl flex items-center justify-center text-blue-600"><i class="fas fa-book-open text-sm"></i></div>
-                            <div class="flex-1"><p class="font-bold text-slate-800 text-xs">英语长难句精读</p><p class="text-[9px] text-slate-400">30分钟 · 日常计划</p></div>
-                            <button class="bg-blue-600 text-white text-[10px] px-3 py-1.5 rounded-full font-bold shadow-lg shadow-blue-100">去完成</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="mobile-nav-bar">
-                    <div class="mobile-nav-item active"><i class="fas fa-home text-lg"></i><span>首页</span></div>
-                    <div class="mobile-nav-item"><i class="fas fa-calendar-alt text-lg"></i><span>记录</span></div>
-                    <div class="mobile-nav-item"><i class="fas fa-trophy text-lg"></i><span>排行</span></div>
-                </div>
-            </div>
+        <div id="lite-app-root" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+            <!-- React app will be rendered here -->
         </div>
     </div>
 
@@ -1334,6 +1316,10 @@
             document.getElementById('view-' + view).classList.remove('hidden');
             document.getElementById('btn-' + view).classList.add('active');
             if(view === 'pc') showPage('home');
+            if(view === 'mobile') {
+                // Load React app when switching to mobile view
+                loadLiteApp();
+            }
         }
 
         function showRiskStudents() {
@@ -1859,6 +1845,57 @@
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('collapsed');
+        }
+
+        // Function to load lite.jsx React app
+        function loadLiteApp() {
+            if (window.liteAppLoaded) return;
+            
+            // Check if lite app script is already loaded
+            if (document.getElementById('lite-app-script')) {
+                renderLiteApp();
+                return;
+            }
+            
+            // Load lucide icons first
+            if (!window.lucide) {
+                const lucideScript = document.createElement('script');
+                lucideScript.src = 'https://unpkg.com/lucide@latest';
+                lucideScript.onload = () => {
+                    loadLiteAppCode();
+                };
+                document.head.appendChild(lucideScript);
+            } else {
+                loadLiteAppCode();
+            }
+        }
+        
+        function loadLiteAppCode() {
+            // Create a script tag that will load lite.jsx
+            // Using script tag with src avoids CORS issues when served via HTTP server
+            const scriptTag = document.createElement('script');
+            scriptTag.id = 'lite-app-script';
+            scriptTag.type = 'text/babel';
+            scriptTag.src = 'lite.jsx';
+            scriptTag.onload = () => {
+                setTimeout(() => renderLiteApp(), 200);
+            };
+            scriptTag.onerror = () => {
+                // Show helpful error message about needing a local server
+                const root = document.getElementById('lite-app-root');
+                root.innerHTML = '<div class="text-center text-slate-400 p-8"><p class="mb-2 font-bold">无法加载学员端应用</p><p class="text-xs mb-4">由于浏览器安全限制，请使用本地服务器运行：</p><div class="bg-slate-100 p-3 rounded-lg text-left text-xs font-mono"><p class="mb-1">方法1: Python</p><p class="text-emerald-600">python -m http.server 8000</p><p class="mt-2 mb-1">方法2: Node.js</p><p class="text-emerald-600">npx serve</p></div><p class="text-xs mt-4">然后在浏览器访问 http://localhost:8000</p></div>';
+            };
+            document.body.appendChild(scriptTag);
+        }
+        
+        function renderLiteApp() {
+            if (typeof App !== 'undefined') {
+                const root = ReactDOM.createRoot(document.getElementById('lite-app-root'));
+                root.render(React.createElement(App));
+                window.liteAppLoaded = true;
+            } else {
+                setTimeout(() => renderLiteApp(), 100);
+            }
         }
 
         // 初始化
