@@ -137,6 +137,61 @@
         </div>
     </div>
 
+    <!-- 任务详情抽屉 -->
+    <div id="task-drawer-overlay" class="drawer-overlay" onclick="closeTaskDrawer()"></div>
+    <div id="task-drawer" class="drawer">
+        <div class="drawer-header">
+            <span class="text-xs font-bold text-slate-500">任务详情</span>
+            <i class="fas fa-times text-slate-300 cursor-pointer hover:text-slate-500" onclick="closeTaskDrawer()"></i>
+        </div>
+        <div class="drawer-body">
+            <div class="p-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded font-bold" id="task-drawer-type">新生加微</span>
+                    <span class="text-xs font-bold text-slate-800" id="task-drawer-status">已逾期</span>
+                </div>
+                <div>
+                    <p class="text-[10px] text-slate-400 mb-1">任务描述</p>
+                    <p class="text-sm font-medium text-slate-800" id="task-drawer-desc">联系学员添加微信好友，建立沟通渠道</p>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">学员姓名</p>
+                        <p class="text-sm font-bold text-slate-800" id="task-drawer-student-name">李萌萌</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">学员ID</p>
+                        <p class="text-sm text-slate-600" id="task-drawer-student-id">98721</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">学员类型</p>
+                        <p class="text-sm text-slate-600" id="task-drawer-student-type">新生</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">二讲老师</p>
+                        <p class="text-sm text-slate-600" id="task-drawer-teacher">张三老师</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">截止时间</p>
+                        <p class="text-sm text-slate-600" id="task-drawer-deadline">2026-01-14 18:00</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">完成时间</p>
+                        <p class="text-sm text-slate-600" id="task-drawer-complete-time">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">处理时长</p>
+                        <p class="text-sm text-slate-600" id="task-drawer-duration">-</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-slate-400 mb-1">任务倒计时</p>
+                        <p class="text-sm font-bold text-red-600" id="task-drawer-countdown">逾期2天</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="view-switcher">
         <button onclick="switchView('pc')" id="btn-pc" class="view-btn active">管理后台</button>
         <button onclick="switchView('wecom')" id="btn-wecom" class="view-btn">企微侧栏</button>
@@ -359,6 +414,200 @@
                             </table>
                         </div>
                     </div>
+                </div>`,
+            task: `
+                <div class="animate-up">
+                    <!-- 统计数据模块 -->
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <!-- 按任务类型统计 -->
+                        <div class="glass-card p-6 rounded-3xl">
+                            <h3 class="text-sm font-black text-slate-800 mb-6 flex items-center gap-2">
+                                <i class="fas fa-tasks text-blue-600"></i> 按任务类型统计
+                            </h3>
+                            <div class="grid grid-cols-3 gap-4">
+                                <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                                    <p class="text-[9px] text-blue-400 font-bold uppercase mb-2">新生加微任务</p>
+                                    <p class="text-2xl font-black text-blue-700">18</p>
+                                </div>
+                                <div class="bg-purple-50 p-4 rounded-2xl border border-purple-100">
+                                    <p class="text-[9px] text-purple-400 font-bold uppercase mb-2">首call任务</p>
+                                    <p class="text-2xl font-black text-purple-700">32</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-2xl border border-green-100">
+                                    <p class="text-[9px] text-green-400 font-bold uppercase mb-2">通时通次任务</p>
+                                    <p class="text-2xl font-black text-green-700">45</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 按任务状态统计 -->
+                        <div class="glass-card p-6 rounded-3xl">
+                            <h3 class="text-sm font-black text-slate-800 mb-6 flex items-center gap-2">
+                                <i class="fas fa-chart-line text-orange-600"></i> 按任务状态统计
+                            </h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-red-50 p-4 rounded-2xl border border-red-100">
+                                    <p class="text-[9px] text-red-400 font-bold uppercase mb-2">已逾期</p>
+                                    <p class="text-2xl font-black text-red-700">8</p>
+                                </div>
+                                <div class="bg-orange-50 p-4 rounded-2xl border border-orange-100">
+                                    <p class="text-[9px] text-orange-400 font-bold uppercase mb-2">临期待处理</p>
+                                    <p class="text-2xl font-black text-orange-700">16</p>
+                                </div>
+                                <div class="bg-yellow-50 p-4 rounded-2xl border border-yellow-100">
+                                    <p class="text-[9px] text-yellow-400 font-bold uppercase mb-2">所有待处理</p>
+                                    <p class="text-2xl font-black text-yellow-700">95</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-2xl border border-green-100">
+                                    <p class="text-[9px] text-green-400 font-bold uppercase mb-2">所有已完成</p>
+                                    <p class="text-2xl font-black text-green-700">287</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 筛选表单 -->
+                    <div class="filter-form" id="task-filter-form">
+                        <div class="filter-header">
+                            <h3><i class="fas fa-filter"></i> 筛选条件</h3>
+                            <i class="fas fa-chevron-down text-slate-400" id="task-filter-chevron"></i>
+                        </div>
+                        <div class="filter-content">
+                            <div class="filter-field">
+                                <label>任务ID</label>
+                                <input type="text" id="task-filter-id" placeholder="请输入任务ID">
+                            </div>
+                            <div class="filter-field">
+                                <label>学员姓名/ID/手机号</label>
+                                <input type="text" id="task-filter-student" placeholder="请输入学员信息">
+                            </div>
+                            <div class="filter-field">
+                                <label>组织架构</label>
+                                <select id="task-filter-org" class="org-select">
+                                    <option value="">全部</option>
+                                    <option value="org1">北京校区</option>
+                                    <option value="org1-1">&nbsp;&nbsp;├─ 计算机学院</option>
+                                    <option value="org1-2">&nbsp;&nbsp;├─ 数学学院</option>
+                                    <option value="org2">上海校区</option>
+                                    <option value="org2-1">&nbsp;&nbsp;├─ 计算机学院</option>
+                                </select>
+                            </div>
+                            <div class="filter-field">
+                                <label>二讲老师</label>
+                                <input type="text" id="task-filter-teacher" placeholder="请输入二讲老师">
+                            </div>
+                            <div class="filter-field">
+                                <label>学员类型</label>
+                                <select id="task-filter-student-type">
+                                    <option value="">全部</option>
+                                    <option value="new">新生</option>
+                                    <option value="old">老生</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="filter-btn filter-btn-secondary">
+                                <i class="fas fa-redo"></i> 重置
+                            </button>
+                            <button class="filter-btn filter-btn-primary">
+                                <i class="fas fa-search"></i> 筛选
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 任务列表 -->
+                    <div class="glass-card rounded-[32px] overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs min-w-[1800px]">
+                                <thead class="bg-slate-50/50 border-b">
+                                    <tr>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">任务ID</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">任务类型</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">任务描述</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">学员姓名</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">学员ID</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">学员类型</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">二讲老师</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">任务状态</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">任务倒计时</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">截止时间</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">完成时间</th>
+                                        <th class="px-4 py-4 font-black text-slate-400 uppercase whitespace-nowrap">处理时长</th>
+                                        <th class="px-4 py-4 text-right font-black text-slate-400 uppercase whitespace-nowrap sticky right-0 bg-slate-50/50">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="task-table-body" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td class="px-4 py-4 text-slate-600 font-mono text-xs">T20260114001</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded font-bold">新生加微</span></td>
+                                        <td class="px-4 py-4 text-slate-600 max-w-[200px] truncate" title="联系学员添加微信好友，建立沟通渠道">联系学员添加微信好友，建立沟通渠道</td>
+                                        <td class="px-4 py-4 font-bold">李萌萌</td>
+                                        <td class="px-4 py-4 text-slate-600">98721</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded font-bold">新生</span></td>
+                                        <td class="px-4 py-4 text-slate-600">张三老师</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-red-100 text-red-600 px-2 py-1 rounded font-bold">已逾期</span></td>
+                                        <td class="px-4 py-4 text-red-600 font-bold">逾期2天</td>
+                                        <td class="px-4 py-4 text-slate-600">2026-01-14 18:00</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-right sticky right-0 bg-white">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs task-detail-btn">查看详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-4 text-slate-600 font-mono text-xs">T20260115002</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-purple-100 text-purple-600 px-2 py-1 rounded font-bold">首call</span></td>
+                                        <td class="px-4 py-4 text-slate-600 max-w-[200px] truncate" title="完成首次电话沟通，了解学员基本情况">完成首次电话沟通，了解学员基本情况</td>
+                                        <td class="px-4 py-4 font-bold">王小明</td>
+                                        <td class="px-4 py-4 text-slate-600">98722</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded font-bold">新生</span></td>
+                                        <td class="px-4 py-4 text-slate-600">张三老师</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-orange-100 text-orange-600 px-2 py-1 rounded font-bold">临期待处理</span></td>
+                                        <td class="px-4 py-4 text-orange-600 font-bold">剩余2小时</td>
+                                        <td class="px-4 py-4 text-slate-600">2026-01-16 20:00</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-right sticky right-0 bg-white">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs task-detail-btn">查看详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-4 text-slate-600 font-mono text-xs">T20260116003</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded font-bold">通时通次</span></td>
+                                        <td class="px-4 py-4 text-slate-600 max-w-[200px] truncate" title="完成本周通话时长和次数要求">完成本周通话时长和次数要求</td>
+                                        <td class="px-4 py-4 font-bold">赵小华</td>
+                                        <td class="px-4 py-4 text-slate-600">98723</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded font-bold">老生</span></td>
+                                        <td class="px-4 py-4 text-slate-600">李四老师</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-yellow-100 text-yellow-600 px-2 py-1 rounded font-bold">待处理</span></td>
+                                        <td class="px-4 py-4 text-slate-600">剩余3天</td>
+                                        <td class="px-4 py-4 text-slate-600">2026-01-19 18:00</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-right sticky right-0 bg-white">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs task-detail-btn">查看详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-4 py-4 text-slate-600 font-mono text-xs">T20260115004</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded font-bold">新生加微</span></td>
+                                        <td class="px-4 py-4 text-slate-600 max-w-[200px] truncate" title="联系学员添加微信好友，建立沟通渠道">联系学员添加微信好友，建立沟通渠道</td>
+                                        <td class="px-4 py-4 font-bold">孙小美</td>
+                                        <td class="px-4 py-4 text-slate-600">98724</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded font-bold">新生</span></td>
+                                        <td class="px-4 py-4 text-slate-600">张三老师</td>
+                                        <td class="px-4 py-4"><span class="text-[10px] bg-green-100 text-green-600 px-2 py-1 rounded font-bold">已完成</span></td>
+                                        <td class="px-4 py-4 text-slate-400">-</td>
+                                        <td class="px-4 py-4 text-slate-600">2026-01-15 18:00</td>
+                                        <td class="px-4 py-4 text-slate-600">2026-01-15 16:30</td>
+                                        <td class="px-4 py-4 text-slate-600">1小时30分钟</td>
+                                        <td class="px-4 py-4 text-right sticky right-0 bg-white">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs task-detail-btn">查看详情</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>`
         };
 
@@ -370,7 +619,7 @@
             const navEl = document.getElementById('nav-' + pageId);
             if (navEl) navEl.classList.add('nav-active');
             
-            // 重新绑定筛选表单的折叠事件和按钮事件
+            // 重新绑定学员管理筛选表单的折叠事件和按钮事件
             const filterForm = document.getElementById('filter-form');
             if (filterForm) {
                 const filterHeader = filterForm.querySelector('.filter-header');
@@ -383,6 +632,27 @@
                 if (resetBtn) resetBtn.onclick = resetFilterForm;
                 if (applyBtn) applyBtn.onclick = applyFilter;
             }
+            
+            // 重新绑定任务管理筛选表单的折叠事件和按钮事件
+            const taskFilterForm = document.getElementById('task-filter-form');
+            if (taskFilterForm) {
+                const taskFilterHeader = taskFilterForm.querySelector('.filter-header');
+                if (taskFilterHeader) {
+                    taskFilterHeader.onclick = toggleTaskFilterForm;
+                }
+                
+                const taskResetBtn = taskFilterForm.querySelector('.filter-btn-secondary');
+                const taskApplyBtn = taskFilterForm.querySelector('.filter-btn-primary');
+                if (taskResetBtn) taskResetBtn.onclick = resetTaskFilterForm;
+                if (taskApplyBtn) taskApplyBtn.onclick = applyTaskFilter;
+            }
+            
+            // 绑定任务详情查看按钮事件
+            document.querySelectorAll('.task-detail-btn').forEach(btn => {
+                btn.onclick = function() {
+                    showTaskDetail();
+                };
+            });
         }
 
         function switchView(view) {
@@ -466,6 +736,64 @@
             // 这里可以添加实际的筛选逻辑，比如调用API或过滤本地数据
             // 示例：根据筛选条件更新表格数据
             alert('筛选功能已触发，筛选条件：' + JSON.stringify(filters, null, 2));
+        }
+
+        function toggleTaskFilterForm() {
+            const form = document.getElementById('task-filter-form');
+            form.classList.toggle('filter-collapsed');
+        }
+
+        function resetTaskFilterForm() {
+            document.getElementById('task-filter-id').value = '';
+            document.getElementById('task-filter-student').value = '';
+            document.getElementById('task-filter-org').value = '';
+            document.getElementById('task-filter-teacher').value = '';
+            document.getElementById('task-filter-student-type').value = '';
+        }
+
+        function applyTaskFilter() {
+            const filters = {
+                taskId: document.getElementById('task-filter-id').value,
+                student: document.getElementById('task-filter-student').value,
+                org: document.getElementById('task-filter-org').value,
+                teacher: document.getElementById('task-filter-teacher').value,
+                studentType: document.getElementById('task-filter-student-type').value
+            };
+            
+            console.log('任务筛选条件:', filters);
+            // 这里可以添加实际的筛选逻辑，比如调用API或过滤本地数据
+            // 示例：根据筛选条件更新表格数据
+            alert('任务筛选功能已触发，筛选条件：' + JSON.stringify(filters, null, 2));
+        }
+
+        function showTaskDetail(event) {
+            // 获取当前行的任务数据（这里使用示例数据，实际应该从表格行获取）
+            const overlay = document.getElementById('task-drawer-overlay');
+            const drawer = document.getElementById('task-drawer');
+            
+            // 这里可以从点击的按钮所在行获取实际数据
+            // 示例：设置任务详情数据
+            document.getElementById('task-drawer-type').textContent = '新生加微';
+            document.getElementById('task-drawer-status').textContent = '已逾期';
+            document.getElementById('task-drawer-desc').textContent = '联系学员添加微信好友，建立沟通渠道';
+            document.getElementById('task-drawer-student-name').textContent = '李萌萌';
+            document.getElementById('task-drawer-student-id').textContent = '98721';
+            document.getElementById('task-drawer-student-type').textContent = '新生';
+            document.getElementById('task-drawer-teacher').textContent = '张三老师';
+            document.getElementById('task-drawer-deadline').textContent = '2026-01-14 18:00';
+            document.getElementById('task-drawer-complete-time').textContent = '-';
+            document.getElementById('task-drawer-duration').textContent = '-';
+            document.getElementById('task-drawer-countdown').textContent = '逾期2天';
+            
+            overlay.classList.add('show');
+            drawer.classList.add('show');
+        }
+
+        function closeTaskDrawer() {
+            const overlay = document.getElementById('task-drawer-overlay');
+            const drawer = document.getElementById('task-drawer');
+            overlay.classList.remove('show');
+            drawer.classList.remove('show');
         }
 
         // 初始化
