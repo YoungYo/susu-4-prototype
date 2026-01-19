@@ -111,6 +111,7 @@
     <!-- 学员详情抽屉 -->
     <div id="drawer-overlay" class="drawer-overlay" onclick="closeStudentDrawer()"></div>
     <div id="student-drawer" class="drawer">
+        <div class="drawer-resizer" id="drawer-resizer"></div>
         <div class="drawer-header">
             <span class="text-xs font-bold text-slate-500">学员详情 · <span id="drawer-student-name">李萌萌</span></span>
             <i class="fas fa-times text-slate-300 cursor-pointer hover:text-slate-500" onclick="closeStudentDrawer()"></i>
@@ -129,7 +130,8 @@
             <div class="flex border-b text-xs sticky top-0 bg-white z-10">
                 <div class="flex-1 py-3 text-center border-b-2 border-blue-600 text-blue-600 font-bold cursor-pointer drawer-tab" data-tab="todo">TODO</div>
                 <div class="flex-1 py-3 text-center text-slate-400 cursor-pointer drawer-tab" data-tab="plan">学习计划</div>
-                <div class="flex-1 py-3 text-center text-slate-400 cursor-pointer drawer-tab" data-tab="checkin">打卡</div>
+                <div class="flex-1 py-3 text-center text-slate-400 cursor-pointer drawer-tab" data-tab="checkin">打卡记录</div>
+                <div class="flex-1 py-3 text-center text-slate-400 cursor-pointer drawer-tab" data-tab="notes">备注</div>
             </div>
             <div class="p-4">
                 <!-- TODO标签页内容 -->
@@ -142,18 +144,147 @@
                 
                 <!-- 学习计划标签页内容 -->
                 <div id="drawer-tab-plan" class="drawer-tab-content hidden">
-                    <div class="calendar-container">
-                        <div class="calendar-header mb-4 flex items-center justify-between">
-                            <button class="calendar-nav-btn" onclick="changeMonth(-1)">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <h3 class="text-sm font-bold text-slate-800" id="calendar-month-year">2026年1月</h3>
-                            <button class="calendar-nav-btn" onclick="changeMonth(1)">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
+                    <!-- 视图切换按钮 -->
+                    <div class="flex gap-2 mb-4 border-b">
+                        <button class="plan-view-btn active px-4 py-2 text-xs font-bold text-blue-600 border-b-2 border-blue-600" data-view="overview">
+                            <i class="fas fa-list"></i> 总览
+                        </button>
+                        <button class="plan-view-btn px-4 py-2 text-xs font-bold text-slate-400" data-view="calendar">
+                            <i class="fas fa-calendar"></i> 日历
+                        </button>
+                    </div>
+                    
+                    <!-- 总览视图 -->
+                    <div id="plan-overview-view" class="plan-view-content">
+                        <div class="space-y-4">
+                            <div class="p-4 bg-blue-50 rounded-xl border-l-4 border-blue-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-blue-800">2026年1月</h4>
+                                </div>
+                                <ul class="text-xs text-blue-700 space-y-2 list-disc list-inside">
+                                    <li>全题型备考指南，弄清考研英语的考查内容&试卷结构，把握考情，了解各题型的考查方式、备考方式，明确备考方向；</li>
+                                    <li>学习1800考研高频词，掌握考研英语1800+高频核心词汇以及其拓展词汇，掌握重点用法和搭配；</li>
+                                    <li>系统学习语法长难句，掌握长难句拆分核心方法"三找一定"，以及长难句3大高分考点、3大高频考点；</li>
+                                    <li>经典长难句50句寒假通关特训，从简单到复杂逐级过渡，强化语法知识的应用，查漏补缺,锻炼分析句子的能力；</li>
+                                    <li>真题入门，精读阅读真题篇章，深入剖析文章的篇章结构、逻辑脉络以及语言表达特色，精准把握文章主旨大意，初步了解各类题型的选材规律，提升词汇运用、长难句分析以及语篇理解等综合能力；</li>
+                                    <li>补充西方背景文化知识，掌握三权分立、脱欧、人工智能等必备背景知识，能够将背景知识与阅读文章紧密结合，更准确地把握文章主旨。</li>
+                                    <li>精读外刊14篇，深入了解西方学术文章行文特色、考研文章特点，拓展词汇量、积累语法点、了解时下热点话题信息。</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-slate-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-slate-600">2026年2月</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 italic">暂无学习计划</p>
+                            </div>
+                            
+                            <div class="p-4 bg-purple-50 rounded-xl border-l-4 border-purple-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-purple-800">2026年3月</h4>
+                                </div>
+                                <ul class="text-xs text-purple-700 space-y-2 list-disc list-inside">
+                                    <li>学习五大题型解题方法，掌握各题型的特点、核心解题技巧，如完形四步法、阅读文章"化繁为简"技巧、翻译"拆分与组合"方法、新题型点线面大法、写作万能句型等等；</li>
+                                    <li>2007-2012年精选试题，主讲逐篇带练，学练结合，巩固解题方法的应用，建立解题思路，培养做题习惯。</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-slate-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-slate-600">2026年4月</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 italic">暂无学习计划</p>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-slate-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-slate-600">2026年5月</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 italic">暂无学习计划</p>
+                            </div>
+                            
+                            <div class="p-4 bg-green-50 rounded-xl border-l-4 border-green-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-green-800">2026年6月</h4>
+                                </div>
+                                <ul class="text-xs text-green-700 space-y-2 list-disc list-inside">
+                                    <li>翻译专题练习，通过对历年真题中的高频主题的10篇文章进行翻译，训练文章翻译「拆分-重组-润色」技巧，突破翻译难题，翻译文章不再简单"单词堆砌"。</li>
+                                    <li>通过基础阶段测评，查漏补缺，明确下个阶段的复习主攻方向。</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-orange-50 rounded-xl border-l-4 border-orange-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-orange-800">2026年7月</h4>
+                                </div>
+                                <ul class="text-xs text-orange-700 space-y-2 list-disc list-inside">
+                                    <li>刷2013-2018年真题，通过课前练习-直播听课-课后复盘，训练做题方法和做题能力，总结答题规律，在保证做题正确率基础上，逐渐提高做题效率；</li>
+                                    <li>阅读题型专题练习，分题型突破6大阅读题型，提升阅读解题能力和准确率。</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-slate-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-slate-600">2026年8月</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 italic">暂无学习计划</p>
+                            </div>
+                            
+                            <div class="p-4 bg-indigo-50 rounded-xl border-l-4 border-indigo-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-indigo-800">2026年9月</h4>
+                                </div>
+                                <ul class="text-xs text-indigo-700 space-y-2 list-disc list-inside">
+                                    <li>刷2019-2024年真题，通过课前练习-直播听课-课后复盘，总结出自己的做题节奏，保证做题正确率，提升做题速度，10月开启套卷速度练习，控制时间做题；</li>
+                                    <li>写作题型专题练习，提升句式灵活度和复杂句应用准确率，提高模板套用精准度，40分钟完成高质量作文。</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-slate-50 rounded-xl border-l-4 border-slate-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-slate-600">2026年10月</h4>
+                                </div>
+                                <p class="text-xs text-slate-500 italic">暂无学习计划</p>
+                            </div>
+                            
+                            <div class="p-4 bg-teal-50 rounded-xl border-l-4 border-teal-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-teal-800">2026年11月</h4>
+                                </div>
+                                <ul class="text-xs text-teal-700 space-y-2 list-disc list-inside">
+                                    <li>考前核心知识串讲课，快速梳理并巩固完形、新题型、阅读、翻译、写作以及词汇等各个板块的关键得分技巧；</li>
+                                    <li>学习阅读&写作热点话题，熟悉当年考试热点，把握命题趋势，积累写作素材；</li>
+                                    <li>2025年试题套卷练习，检验全年学习效果。</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-4 bg-red-50 rounded-xl border-l-4 border-red-400">
+                                <div class="flex items-center justify-between mb-3">
+                                    <h4 class="text-sm font-black text-red-800">2026年12月</h4>
+                                </div>
+                                <ul class="text-xs text-red-700 space-y-2 list-disc list-inside">
+                                    <li>两轮模考，模拟考场实战，适应考试节奏和考场氛围，稳住考前心态；</li>
+                                    <li>考前点睛课，熟悉阅读热点话题、写作预测作文模板&思路梳理，考前临门一脚、奋力突击。</li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="calendar-grid" id="calendar-grid">
-                            <!-- 日历将通过JavaScript动态生成 -->
+                    </div>
+                    
+                    <!-- 日历视图 -->
+                    <div id="plan-calendar-view" class="plan-view-content hidden">
+                        <div class="calendar-container">
+                            <div class="calendar-header mb-4 flex items-center justify-between">
+                                <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h3 class="text-sm font-bold text-slate-800" id="calendar-month-year">2026年1月</h3>
+                                <button class="calendar-nav-btn" onclick="changeMonth(1)">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="calendar-grid" id="calendar-grid">
+                                <!-- 日历将通过JavaScript动态生成 -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -942,13 +1073,67 @@
             // 初始化标签页
             switchDrawerTab('todo');
             
-            // 初始化日历
-            initCalendar();
+            // 初始化学习计划视图（默认显示总览）
+            switchPlanView('overview');
+            
+            // 初始化拖拽功能
+            initDrawerResizer();
             
             const overlay = document.getElementById('drawer-overlay');
             const drawer = document.getElementById('student-drawer');
             overlay.classList.add('show');
             drawer.classList.add('show');
+        }
+
+        // 初始化抽屉拖拽功能
+        function initDrawerResizer() {
+            const drawer = document.getElementById('student-drawer');
+            const resizer = document.getElementById('drawer-resizer');
+            
+            if (!resizer || !drawer) return;
+            
+            let isResizing = false;
+            let startX = 0;
+            let startWidth = 0;
+            
+            // 移除之前的事件监听器
+            const newResizer = resizer.cloneNode(true);
+            resizer.parentNode.replaceChild(newResizer, resizer);
+            
+            newResizer.addEventListener('mousedown', function(e) {
+                isResizing = true;
+                startX = e.clientX;
+                startWidth = drawer.offsetWidth;
+                drawer.classList.add('resizing');
+                newResizer.classList.add('dragging');
+                document.body.style.cursor = 'ew-resize';
+                e.preventDefault();
+            });
+            
+            const handleMouseMove = function(e) {
+                if (!isResizing) return;
+                
+                const diff = startX - e.clientX; // 因为是右侧抽屉，向左拖拽是增加宽度
+                const newWidth = startWidth + diff;
+                const minWidth = 400;
+                const maxWidth = window.innerWidth * 0.9;
+                
+                if (newWidth >= minWidth && newWidth <= maxWidth) {
+                    drawer.style.width = newWidth + 'px';
+                }
+            };
+            
+            const handleMouseUp = function() {
+                if (isResizing) {
+                    isResizing = false;
+                    drawer.classList.remove('resizing');
+                    newResizer.classList.remove('dragging');
+                    document.body.style.cursor = '';
+                }
+            };
+            
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
         }
 
         // 标签页切换
@@ -985,7 +1170,46 @@
                 const tabName = tab.getAttribute('data-tab');
                 switchDrawerTab(tabName);
             }
+            
+            // 绑定学习计划视图切换事件
+            if (e.target.closest('.plan-view-btn')) {
+                const btn = e.target.closest('.plan-view-btn');
+                const view = btn.getAttribute('data-view');
+                switchPlanView(view);
+            }
         });
+
+        // 切换学习计划视图
+        function switchPlanView(viewName) {
+            // 移除所有活动状态
+            document.querySelectorAll('.plan-view-btn').forEach(btn => {
+                btn.classList.remove('active', 'border-b-2', 'border-blue-600', 'text-blue-600');
+                btn.classList.add('text-slate-400');
+            });
+            
+            // 隐藏所有视图
+            document.querySelectorAll('.plan-view-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // 激活选中的视图按钮
+            const activeBtn = document.querySelector(`[data-view="${viewName}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active', 'border-b-2', 'border-blue-600', 'text-blue-600');
+                activeBtn.classList.remove('text-slate-400');
+            }
+            
+            // 显示对应视图
+            const activeView = document.getElementById(`plan-${viewName}-view`);
+            if (activeView) {
+                activeView.classList.remove('hidden');
+            }
+            
+            // 如果是日历视图，初始化日历
+            if (viewName === 'calendar') {
+                initCalendar();
+            }
+        }
 
         // 日历相关变量
         let currentCalendarDate = new Date(2026, 0, 16); // 2026年1月16日

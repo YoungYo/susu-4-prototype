@@ -125,6 +125,8 @@ aside { background: var(--sidebar-bg); }
     top: 0;
     right: -500px;
     width: 500px;
+    min-width: 400px;
+    max-width: 90vw;
     height: 100vh;
     background: white;
     box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
@@ -136,6 +138,30 @@ aside { background: var(--sidebar-bg); }
 
 .drawer.show {
     right: 0;
+}
+
+.drawer.resizing {
+    transition: none;
+}
+
+.drawer-resizer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    cursor: ew-resize;
+    background: transparent;
+    z-index: 10002;
+    transition: background 0.2s;
+}
+
+.drawer-resizer:hover {
+    background: #2563eb;
+}
+
+.drawer-resizer.dragging {
+    background: #2563eb;
 }
 
 .drawer-header {
@@ -442,4 +468,46 @@ table thead th.sticky-column {
 .calendar-plan-item.professional {
     background: #d1fae5;
     color: #065f46;
+}
+
+/* === 学习计划视图切换样式 === */
+.plan-view-btn {
+    transition: all 0.2s;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    padding: 8px 16px;
+}
+
+.plan-view-btn:hover {
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.plan-view-btn.active {
+    color: #2563eb;
+    border-bottom: 2px solid #2563eb;
+}
+
+.plan-view-content {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.plan-view-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.plan-view-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.plan-view-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.plan-view-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
 }
