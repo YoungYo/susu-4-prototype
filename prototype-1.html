@@ -205,9 +205,102 @@
                             <div id="risk-card" class="glass-card px-6 py-4 rounded-2xl flex items-center gap-4 border-red-100"><div class="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center text-red-600"><i class="fas fa-user-shield"></i></div><div><p class="text-[9px] text-red-400 font-bold uppercase">风险学员</p><p class="text-lg font-black text-red-600">12</p></div></div>
                         </div>
                     </div>
+                    <div class="filter-form" id="filter-form">
+                        <div class="filter-header">
+                            <h3><i class="fas fa-filter"></i> 筛选条件</h3>
+                            <i class="fas fa-chevron-down text-slate-400" id="filter-chevron"></i>
+                        </div>
+                        <div class="filter-content">
+                            <div class="filter-field">
+                                <label>学员ID</label>
+                                <input type="text" id="filter-student-id" placeholder="请输入学员ID">
+                            </div>
+                            <div class="filter-field">
+                                <label>学员手机号</label>
+                                <input type="text" id="filter-phone" placeholder="请输入手机号">
+                            </div>
+                            <div class="filter-field">
+                                <label>班级ID</label>
+                                <input type="text" id="filter-class-id" placeholder="请输入班级ID">
+                            </div>
+                            <div class="filter-field">
+                                <label>班级名称</label>
+                                <input type="text" id="filter-class-name" placeholder="请输入班级名称">
+                            </div>
+                            <div class="filter-field">
+                                <label>本科院校</label>
+                                <input type="text" id="filter-undergrad-school" placeholder="请输入本科院校">
+                            </div>
+                            <div class="filter-field">
+                                <label>本科专业</label>
+                                <input type="text" id="filter-undergrad-major" placeholder="请输入本科专业">
+                            </div>
+                            <div class="filter-field">
+                                <label>目标院校</label>
+                                <input type="text" id="filter-target-school" placeholder="请输入目标院校">
+                            </div>
+                            <div class="filter-field">
+                                <label>目标专业</label>
+                                <input type="text" id="filter-target-major" placeholder="请输入目标专业">
+                            </div>
+                            <div class="filter-field">
+                                <label>完课率</label>
+                                <select id="filter-completion-rate">
+                                    <option value="">全部</option>
+                                    <option value="0-20">0-20%</option>
+                                    <option value="21-40">21-40%</option>
+                                    <option value="41-60">41-60%</option>
+                                    <option value="61-80">61-80%</option>
+                                    <option value="81-100">81-100%</option>
+                                </select>
+                            </div>
+                            <div class="filter-field">
+                                <label>是否上岸</label>
+                                <select id="filter-is-admitted">
+                                    <option value="">全部</option>
+                                    <option value="yes">是</option>
+                                    <option value="no">否</option>
+                                </select>
+                            </div>
+                            <div class="filter-field">
+                                <label>上岸院校</label>
+                                <input type="text" id="filter-admitted-school" placeholder="请输入上岸院校">
+                            </div>
+                            <div class="filter-field">
+                                <label>上岸专业</label>
+                                <input type="text" id="filter-admitted-major" placeholder="请输入上岸专业">
+                            </div>
+                            <div class="filter-field">
+                                <label>好友关系</label>
+                                <select id="filter-friend-status">
+                                    <option value="">全部</option>
+                                    <option value="yes">是</option>
+                                    <option value="no">否</option>
+                                </select>
+                            </div>
+                            <div class="filter-field">
+                                <label>年级</label>
+                                <select id="filter-grade">
+                                    <option value="">全部</option>
+                                    <option value="27">27届</option>
+                                    <option value="28">28届</option>
+                                    <option value="29">29届</option>
+                                    <option value="30">30届</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="filter-btn filter-btn-secondary">
+                                <i class="fas fa-redo"></i> 重置
+                            </button>
+                            <button class="filter-btn filter-btn-primary">
+                                <i class="fas fa-search"></i> 筛选
+                            </button>
+                        </div>
+                    </div>
                     <div class="glass-card rounded-[32px] overflow-hidden">
                         <table class="w-full text-left text-xs"><thead class="bg-slate-50/50 border-b"><tr><th class="px-8 py-5 font-black text-slate-400 uppercase">学员姓名</th><th class="px-8 py-5 font-black text-slate-400 uppercase">目标院校/专业</th><th class="px-8 py-5 font-black text-slate-400 uppercase">完课率</th><th class="px-8 py-5 text-right font-black text-slate-400 uppercase">操作</th></tr></thead>
-                        <tbody class="divide-y divide-slate-100"><tr><td class="px-8 py-5"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">萌</div><div><p class="font-bold">李萌萌</p><p class="text-[9px] text-slate-400">ID: 98721</p></div></div></td><td class="px-8 py-5 font-medium">清华大学 · 计算机</td><td class="px-8 py-5 text-red-500 font-black">15%</td><td class="px-8 py-5 text-right"><button class="text-blue-600 font-bold hover:underline" onclick="showStudentDrawer('李萌萌', '98721', '清华大学', '计算机', '15%')">查看详情</button></td></tr></tbody></table>
+                        <tbody id="student-table-body" class="divide-y divide-slate-100"><tr><td class="px-8 py-5"><div class="flex items-center gap-3"><div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold">萌</div><div><p class="font-bold">李萌萌</p><p class="text-[9px] text-slate-400">ID: 98721</p></div></div></td><td class="px-8 py-5 font-medium">清华大学 · 计算机</td><td class="px-8 py-5 text-red-500 font-black">15%</td><td class="px-8 py-5 text-right"><button class="text-blue-600 font-bold hover:underline" onclick="showStudentDrawer('李萌萌', '98721', '清华大学', '计算机', '15%')">查看详情</button></td></tr></tbody></table>
                     </div>
                 </div>`
         };
@@ -219,6 +312,20 @@
             document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('nav-active'));
             const navEl = document.getElementById('nav-' + pageId);
             if (navEl) navEl.classList.add('nav-active');
+            
+            // 重新绑定筛选表单的折叠事件和按钮事件
+            const filterForm = document.getElementById('filter-form');
+            if (filterForm) {
+                const filterHeader = filterForm.querySelector('.filter-header');
+                if (filterHeader) {
+                    filterHeader.onclick = toggleFilterForm;
+                }
+                
+                const resetBtn = filterForm.querySelector('.filter-btn-secondary');
+                const applyBtn = filterForm.querySelector('.filter-btn-primary');
+                if (resetBtn) resetBtn.onclick = resetFilterForm;
+                if (applyBtn) applyBtn.onclick = applyFilter;
+            }
         }
 
         function switchView(view) {
@@ -256,6 +363,52 @@
             const drawer = document.getElementById('student-drawer');
             overlay.classList.remove('show');
             drawer.classList.remove('show');
+        }
+
+        function toggleFilterForm() {
+            const form = document.getElementById('filter-form');
+            form.classList.toggle('filter-collapsed');
+        }
+
+        function resetFilterForm() {
+            document.getElementById('filter-student-id').value = '';
+            document.getElementById('filter-phone').value = '';
+            document.getElementById('filter-class-id').value = '';
+            document.getElementById('filter-class-name').value = '';
+            document.getElementById('filter-undergrad-school').value = '';
+            document.getElementById('filter-undergrad-major').value = '';
+            document.getElementById('filter-target-school').value = '';
+            document.getElementById('filter-target-major').value = '';
+            document.getElementById('filter-completion-rate').value = '';
+            document.getElementById('filter-is-admitted').value = '';
+            document.getElementById('filter-admitted-school').value = '';
+            document.getElementById('filter-admitted-major').value = '';
+            document.getElementById('filter-friend-status').value = '';
+            document.getElementById('filter-grade').value = '';
+        }
+
+        function applyFilter() {
+            const filters = {
+                studentId: document.getElementById('filter-student-id').value,
+                phone: document.getElementById('filter-phone').value,
+                classId: document.getElementById('filter-class-id').value,
+                className: document.getElementById('filter-class-name').value,
+                undergradSchool: document.getElementById('filter-undergrad-school').value,
+                undergradMajor: document.getElementById('filter-undergrad-major').value,
+                targetSchool: document.getElementById('filter-target-school').value,
+                targetMajor: document.getElementById('filter-target-major').value,
+                completionRate: document.getElementById('filter-completion-rate').value,
+                isAdmitted: document.getElementById('filter-is-admitted').value,
+                admittedSchool: document.getElementById('filter-admitted-school').value,
+                admittedMajor: document.getElementById('filter-admitted-major').value,
+                friendStatus: document.getElementById('filter-friend-status').value,
+                grade: document.getElementById('filter-grade').value
+            };
+            
+            console.log('筛选条件:', filters);
+            // 这里可以添加实际的筛选逻辑，比如调用API或过滤本地数据
+            // 示例：根据筛选条件更新表格数据
+            alert('筛选功能已触发，筛选条件：' + JSON.stringify(filters, null, 2));
         }
 
         // 初始化
