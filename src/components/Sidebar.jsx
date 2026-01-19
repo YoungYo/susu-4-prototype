@@ -42,8 +42,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
       <div id="sidebar-footer" className="m-6 p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3">
         <img src="/avatar.jpeg" className="w-9 h-9 rounded-xl flex-shrink-0" alt="avatar" />
         <div className="overflow-hidden sidebar-text">
-          <p className="text-white text-xs font-bold truncate">张三老师</p>
-          <p className="text-gray-500 text-[9px] uppercase">高级二讲</p>
+          <p className="text-white text-xs font-bold truncate">张三</p>
         </div>
       </div>
     </aside>
