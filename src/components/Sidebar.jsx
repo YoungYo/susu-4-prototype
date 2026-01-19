@@ -9,6 +9,7 @@ const Sidebar = ({ currentPage, onPageChange }) => {
     { id: 'task', icon: 'fa-tasks', label: '任务管理' },
     { id: 'performance', icon: 'fa-chart-bar', label: '我的绩效' },
     { id: 'plan', icon: 'fa-book', label: '复习规划' },
+    { id: 'checkin', icon: 'fa-calendar-check', label: '打卡管理', external: 'https://gemini.google.com/share/51ee4b695203' },
   ]
 
   return (
@@ -29,7 +30,13 @@ const Sidebar = ({ currentPage, onPageChange }) => {
         {menuItems.map((item) => (
           <div
             key={item.id}
-            onClick={() => onPageChange(item.id)}
+            onClick={() => {
+              if (item.external) {
+                window.open(item.external, '_blank')
+              } else {
+                onPageChange(item.id)
+              }
+            }}
             className={`sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer ${
               currentPage === item.id ? 'nav-active' : ''
             }`}
