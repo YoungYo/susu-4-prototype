@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import StudentDrawer from '../drawers/StudentDrawer'
+import StudentPlanModal from '../modals/StudentPlanModal'
 
 const StudentPage = () => {
   const [selectedStudent, setSelectedStudent] = useState(null)
+  const [selectedStudentForPlan, setSelectedStudentForPlan] = useState(null)
   const [filterCollapsed, setFilterCollapsed] = useState(false)
 
   const students = [
@@ -222,12 +224,20 @@ const StudentPage = () => {
                     {student.notes}
                   </td>
                   <td className="px-4 py-4 text-right sticky right-0 bg-white">
-                    <button
-                      className="text-blue-600 font-bold hover:underline text-xs"
-                      onClick={() => setSelectedStudent(student)}
-                    >
-                      查看详情
-                    </button>
+                    <div className="flex gap-2 justify-end">
+                      <button
+                        className="text-blue-600 font-bold hover:underline text-xs"
+                        onClick={() => setSelectedStudentForPlan(student)}
+                      >
+                        学习计划
+                      </button>
+                      <button
+                        className="text-blue-600 font-bold hover:underline text-xs"
+                        onClick={() => setSelectedStudent(student)}
+                      >
+                        查看详情
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -240,6 +250,13 @@ const StudentPage = () => {
         <StudentDrawer
           student={selectedStudent}
           onClose={() => setSelectedStudent(null)}
+        />
+      )}
+
+      {selectedStudentForPlan && (
+        <StudentPlanModal
+          student={selectedStudentForPlan}
+          onClose={() => setSelectedStudentForPlan(null)}
         />
       )}
     </div>
