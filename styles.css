@@ -178,6 +178,20 @@ aside { background: var(--sidebar-bg); }
     overflow-y: auto;
 }
 
+/* === 复习规划详情页面样式 === */
+#plan-detail-page {
+    z-index: 10002;
+}
+
+#plan-detail-page table th,
+#plan-detail-page table td {
+    vertical-align: top;
+}
+
+#plan-detail-page table td {
+    max-width: 200px;
+}
+
 /* === 筛选表单样式 === */
 .filter-form {
     background: rgba(255, 255, 255, 0.8);

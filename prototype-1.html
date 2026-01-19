@@ -31,10 +31,13 @@
                 <div onclick="showPage('performance')" id="nav-performance" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
                     <i class="fas fa-chart-bar w-5"></i><span class="font-semibold text-sm">我的绩效</span>
                 </div>
+                <div onclick="showPage('plan')" id="nav-plan" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+                    <i class="fas fa-book w-5"></i><span class="font-semibold text-sm">复习规划</span>
+                </div>
             </nav>
             <div class="m-6 p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3">
                 <img src="avatar.jpeg" class="w-9 h-9 rounded-xl">
-                <div class="overflow-hidden"><p class="text-white text-xs font-bold truncate">张三老师</p><p class="text-gray-500 text-[9px] uppercase">高级二讲</p></div>
+                <div class="overflow-hidden"><p class="text-white text-xs font-bold truncate">张三</p></div>
             </div>
         </aside>
 
@@ -350,6 +353,97 @@
                         <p class="text-[10px] text-slate-400 mb-1">任务倒计时</p>
                         <p class="text-sm font-bold text-red-600" id="task-drawer-countdown">逾期2天</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 复习规划详情页面 -->
+    <div id="plan-detail-overlay" class="drawer-overlay" onclick="closePlanDetail()"></div>
+    <div id="plan-detail-page" class="hidden fixed inset-0 bg-white z-10002 overflow-y-auto">
+        <div class="max-w-7xl mx-auto p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-black text-slate-800">复习规划详情</h1>
+                <button onclick="closePlanDetail()" class="text-slate-400 hover:text-slate-600 text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="glass-card rounded-3xl overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs min-w-[1200px]">
+                        <thead class="bg-slate-50/50 border-b">
+                            <tr>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">学习阶段</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">月份</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">学习目标</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">课程</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">练习</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">使用资料/讲义</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">学习建议</th>
+                                <th class="px-4 py-3 font-black text-slate-400 uppercase whitespace-nowrap">考研重要阶段</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr>
+                                <td class="px-4 py-4 align-top font-bold text-slate-800" rowspan="2">早鸟阶段：系统强基</td>
+                                <td class="px-4 py-4 align-top text-slate-600">2026.1月</td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px] leading-relaxed">
+                                    <ol class="list-decimal list-inside space-y-1">
+                                        <li>全题型备考指南，弄清考研英语的考查内容&试卷结构，把握考情，了解各题型的考查方式、备考方式，明确备考方向；</li>
+                                        <li>学习1800考研高频词，掌握考研英语1800+高频核心词汇以及其拓展词汇，掌握重点用法和搭配；</li>
+                                        <li>系统学习语法长难句，掌握长难句拆分核心方法"三找一定"，以及长难句3大高分考点、3大高频考点；</li>
+                                        <li>经典长难句50句寒假通关特训，从简单到复杂逐级过渡，强化语法知识的应用，查漏补缺,锻炼分析句子的能力；</li>
+                                        <li>真题入门，精读阅读真题篇章，深入剖析文章的篇章结构、逻辑脉络以及语言表达特色，精准把握文章主旨大意，初步了解各类题型的选材规律，提升词汇运用、长难句分析以及语篇理解等综合能力；</li>
+                                        <li>补充西方背景文化知识，掌握三权分立、脱欧、人工智能等必备背景知识，能够将背景知识与阅读文章紧密结合，更准确地把握文章主旨。</li>
+                                        <li>精读外刊14篇，深入了解西方学术文章行文特色、考研文章特点，拓展词汇量、积累语法点、了解时下热点话题信息。</li>
+                                    </ol>
+                                </td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px] leading-relaxed">
+                                    <ol class="list-decimal list-inside space-y-1">
+                                        <li>全题型备考型导学课 （3节）</li>
+                                        <li>词汇课程：1800考研高频词课程（38节）</li>
+                                        <li>语法课程：语法长难句逐句精讲（11节）</li>
+                                        <li>语法带练：考研经典长难句50句（10节）</li>
+                                        <li>真题篇章入门，阅读真题篇章精读</li>
+                                        <li>阅读素养：西方背景文化课（10节）—选修</li>
+                                        <li>精选题源外刊课（14节）—选修</li>
+                                    </ol>
+                                </td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px] leading-relaxed">
+                                    <ol class="list-decimal list-inside space-y-1">
+                                        <li>课后完成词汇自测<br>考研英语1800高频词汇自测本（电子版）<br>1800考研高频词习题集（2课1测）</li>
+                                        <li>课前预习语法长难句的句子，课后完成主讲布置的课后练习</li>
+                                        <li>经典长难句打卡，每日打卡，分析句子</li>
+                                        <li>真题/外刊文章重难点单词背诵、句子分析</li>
+                                        <li>完成模块测<br>【模块测】语法长难句：测评<br>【模块测】1800高频词：测评<br>【模块测】真题篇章入门：测评</li>
+                                    </ol>
+                                </td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px] leading-relaxed">
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>1800考研高频词讲义（纸质版）</li>
+                                        <li>1800考研高频词习题集（纸质版）</li>
+                                        <li>考研英语语法及长难句讲义（纸质版）</li>
+                                        <li>50句经典长难句讲义（电子版）</li>
+                                        <li>经典篇章精读讲义（电子版）</li>
+                                        <li>考研英语精选题源外刊（纸质版）</li>
+                                    </ul>
+                                </td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px] leading-relaxed">
+                                    寒假复习黄金期，要把握好复习节奏，充分利用这段时间夯实基础，为3月份开始的方法论学习打牢根基：<br><br>
+                                    1、词汇学习要有重点，重点学习高频词汇，除了背释义外，还要记用法搭配。<br><br>
+                                    2、语法学习要多练习，多分析，除了听老师讲解，自己课前课后也要动笔划分句子结构、翻译句子。<br><br>
+                                    3、阅读学习要多动笔，多积累，除了读懂文章大意外，要学会分析句子、掌握地道表达。
+                                </td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px]">26考研结束</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-4 align-top text-slate-600">2月</td>
+                                <td class="px-4 py-4 align-top text-slate-400 italic" colspan="6">-</td>
+                                <td class="px-4 py-4 align-top text-slate-600 text-[11px]">26考研初试成绩公布</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -1027,12 +1121,110 @@
                             </div>
                         </div>
                     </div>
+                </div>`,
+            plan: `
+                <div class="animate-up">
+                    <!-- 筛选表单 -->
+                    <div class="filter-form" id="plan-filter-form">
+                        <div class="filter-header">
+                            <h3><i class="fas fa-filter"></i> 筛选条件</h3>
+                            <i class="fas fa-chevron-down text-slate-400" id="plan-filter-chevron"></i>
+                        </div>
+                        <div class="filter-content">
+                            <div class="filter-field">
+                                <label>课程ID</label>
+                                <input type="text" id="plan-filter-course-id" placeholder="请输入课程ID">
+                            </div>
+                            <div class="filter-field">
+                                <label>课程名称</label>
+                                <input type="text" id="plan-filter-course-name" placeholder="请输入课程名称">
+                            </div>
+                            <div class="filter-field">
+                                <label>科目</label>
+                                <select id="plan-filter-subject">
+                                    <option value="">全部</option>
+                                    <option value="english">英语</option>
+                                    <option value="math">数学</option>
+                                    <option value="politics">政治</option>
+                                    <option value="management">管综</option>
+                                    <option value="computer408">计算机408</option>
+                                    <option value="law">法硕</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="filter-actions">
+                            <button class="filter-btn filter-btn-secondary">
+                                <i class="fas fa-redo"></i> 重置
+                            </button>
+                            <button class="filter-btn filter-btn-primary">
+                                <i class="fas fa-search"></i> 筛选
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 操作按钮 -->
+                    <div class="flex justify-between items-center mb-6">
+                        <div class="flex gap-3">
+                            <button class="px-4 py-2 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition-colors">
+                                <i class="fas fa-plus mr-2"></i>新增
+                            </button>
+                            <button class="px-4 py-2 bg-red-600 text-white rounded-xl text-sm font-bold hover:bg-red-700 transition-colors">
+                                <i class="fas fa-trash mr-2"></i>批量删除
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 复习规划列表 -->
+                    <div class="glass-card rounded-[32px] overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-50/50 border-b">
+                                    <tr>
+                                        <th class="px-6 py-4 font-black text-slate-400 uppercase whitespace-nowrap">课程ID</th>
+                                        <th class="px-6 py-4 font-black text-slate-400 uppercase whitespace-nowrap">课程名称</th>
+                                        <th class="px-6 py-4 font-black text-slate-400 uppercase whitespace-nowrap">科目</th>
+                                        <th class="px-6 py-4 font-black text-slate-400 uppercase whitespace-nowrap">复习规划名称</th>
+                                        <th class="px-6 py-4 text-right font-black text-slate-400 uppercase whitespace-nowrap">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="plan-table-body" class="divide-y divide-slate-100">
+                                    <tr>
+                                        <td class="px-6 py-4 text-slate-600 font-mono text-xs">C202601001</td>
+                                        <td class="px-6 py-4 font-bold text-slate-800">2027考研英语全程班</td>
+                                        <td class="px-6 py-4"><span class="text-[10px] bg-yellow-100 text-yellow-600 px-2 py-1 rounded font-bold">英语</span></td>
+                                        <td class="px-6 py-4 text-slate-600">2027考研英语全程复习规划</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs plan-detail-btn" onclick="showPlanDetail('C202601001')">查看详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 text-slate-600 font-mono text-xs">C202601002</td>
+                                        <td class="px-6 py-4 font-bold text-slate-800">2027考研数学全程班</td>
+                                        <td class="px-6 py-4"><span class="text-[10px] bg-blue-100 text-blue-600 px-2 py-1 rounded font-bold">数学</span></td>
+                                        <td class="px-6 py-4 text-slate-600">2027考研数学全程复习规划</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs plan-detail-btn" onclick="showPlanDetail('C202601002')">查看详情</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="px-6 py-4 text-slate-600 font-mono text-xs">C202601003</td>
+                                        <td class="px-6 py-4 font-bold text-slate-800">2027考研政治全程班</td>
+                                        <td class="px-6 py-4"><span class="text-[10px] bg-red-100 text-red-600 px-2 py-1 rounded font-bold">政治</span></td>
+                                        <td class="px-6 py-4 text-slate-600">2027考研政治全程复习规划</td>
+                                        <td class="px-6 py-4 text-right">
+                                            <button class="text-blue-600 font-bold hover:underline text-xs plan-detail-btn" onclick="showPlanDetail('C202601003')">查看详情</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>`
         };
 
         function showPage(pageId) {
             pcContent.innerHTML = pages[pageId] || `<div class="p-20 text-center text-slate-300 font-bold uppercase tracking-widest">Page In Development</div>`;
-            const titles = {home:'首页看板', student:'学员管理', task:'任务管理', performance:'我的绩效'};
+            const titles = {home:'首页看板', student:'学员管理', task:'任务管理', performance:'我的绩效', plan:'复习规划'};
             pageTitle.innerText = titles[pageId] || '系统模块';
             document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('nav-active'));
             const navEl = document.getElementById('nav-' + pageId);
@@ -1477,6 +1669,42 @@
             const drawer = document.getElementById('task-drawer');
             overlay.classList.remove('show');
             drawer.classList.remove('show');
+        }
+
+        function togglePlanFilterForm() {
+            const form = document.getElementById('plan-filter-form');
+            form.classList.toggle('filter-collapsed');
+        }
+
+        function resetPlanFilterForm() {
+            document.getElementById('plan-filter-course-id').value = '';
+            document.getElementById('plan-filter-course-name').value = '';
+            document.getElementById('plan-filter-subject').value = '';
+        }
+
+        function applyPlanFilter() {
+            const filters = {
+                courseId: document.getElementById('plan-filter-course-id').value,
+                courseName: document.getElementById('plan-filter-course-name').value,
+                subject: document.getElementById('plan-filter-subject').value
+            };
+            
+            console.log('复习规划筛选条件:', filters);
+            alert('复习规划筛选功能已触发，筛选条件：' + JSON.stringify(filters, null, 2));
+        }
+
+        function showPlanDetail(courseId) {
+            const overlay = document.getElementById('plan-detail-overlay');
+            const page = document.getElementById('plan-detail-page');
+            overlay.classList.add('show');
+            page.classList.remove('hidden');
+        }
+
+        function closePlanDetail() {
+            const overlay = document.getElementById('plan-detail-overlay');
+            const page = document.getElementById('plan-detail-page');
+            overlay.classList.remove('show');
+            page.classList.add('hidden');
         }
 
         // 初始化
