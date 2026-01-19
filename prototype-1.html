@@ -127,14 +127,43 @@
                 </div>
             </div>
             <div class="flex border-b text-xs sticky top-0 bg-white z-10">
-                <div class="flex-1 py-3 text-center border-b-2 border-blue-600 text-blue-600 font-bold">TODO</div>
-                <div class="flex-1 py-3 text-center text-slate-400">计划</div>
-                <div class="flex-1 py-3 text-center text-slate-400">打卡</div>
+                <div class="flex-1 py-3 text-center border-b-2 border-blue-600 text-blue-600 font-bold cursor-pointer drawer-tab" data-tab="todo">TODO</div>
+                <div class="flex-1 py-3 text-center text-slate-400 cursor-pointer drawer-tab" data-tab="plan">学习计划</div>
+                <div class="flex-1 py-3 text-center text-slate-400 cursor-pointer drawer-tab" data-tab="checkin">打卡</div>
             </div>
-            <div class="p-4 space-y-3">
-                <div class="p-3 bg-orange-50 rounded-xl border-l-4 border-orange-400">
-                    <p class="text-xs font-bold text-orange-800">修改高数基础学习计划</p>
-                    <p class="text-[9px] text-orange-400 mt-1">截止：今日 18:00</p>
+            <div class="p-4">
+                <!-- TODO标签页内容 -->
+                <div id="drawer-tab-todo" class="drawer-tab-content space-y-3">
+                    <div class="p-3 bg-orange-50 rounded-xl border-l-4 border-orange-400">
+                        <p class="text-xs font-bold text-orange-800">修改高数基础学习计划</p>
+                        <p class="text-[9px] text-orange-400 mt-1">截止：今日 18:00</p>
+                    </div>
+                </div>
+                
+                <!-- 学习计划标签页内容 -->
+                <div id="drawer-tab-plan" class="drawer-tab-content hidden">
+                    <div class="calendar-container">
+                        <div class="calendar-header mb-4 flex items-center justify-between">
+                            <button class="calendar-nav-btn" onclick="changeMonth(-1)">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h3 class="text-sm font-bold text-slate-800" id="calendar-month-year">2026年1月</h3>
+                            <button class="calendar-nav-btn" onclick="changeMonth(1)">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="calendar-grid" id="calendar-grid">
+                            <!-- 日历将通过JavaScript动态生成 -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 打卡标签页内容 -->
+                <div id="drawer-tab-checkin" class="drawer-tab-content hidden">
+                    <div class="text-center py-8 text-slate-400 text-sm">
+                        <i class="fas fa-calendar-check text-3xl mb-3"></i>
+                        <p>打卡记录功能开发中</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -197,7 +226,7 @@
 
     <div class="view-switcher">
         <button onclick="switchView('pc')" id="btn-pc" class="view-btn active">管理后台</button>
-        <button onclick="switchView('wecom')" id="btn-wecom" class="view-btn">企微侧栏</button>
+        <button onclick="switchView('wecom')" id="btn-wecom" class="view-btn">企微侧边栏</button>
         <button onclick="switchView('mobile')" id="btn-mobile" class="view-btn">学员端</button>
     </div>
 
@@ -910,10 +939,181 @@
             document.getElementById('drawer-major').textContent = major;
             document.getElementById('drawer-avatar').textContent = name.charAt(0);
             
+            // 初始化标签页
+            switchDrawerTab('todo');
+            
+            // 初始化日历
+            initCalendar();
+            
             const overlay = document.getElementById('drawer-overlay');
             const drawer = document.getElementById('student-drawer');
             overlay.classList.add('show');
             drawer.classList.add('show');
+        }
+
+        // 标签页切换
+        function switchDrawerTab(tabName) {
+            // 移除所有活动状态
+            document.querySelectorAll('.drawer-tab').forEach(tab => {
+                tab.classList.remove('active', 'border-b-2', 'border-blue-600', 'text-blue-600');
+                tab.classList.add('text-slate-400');
+            });
+            
+            // 隐藏所有内容
+            document.querySelectorAll('.drawer-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // 激活选中的标签页
+            const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
+            if (activeTab) {
+                activeTab.classList.add('active', 'border-b-2', 'border-blue-600', 'text-blue-600');
+                activeTab.classList.remove('text-slate-400');
+            }
+            
+            // 显示对应内容
+            const activeContent = document.getElementById(`drawer-tab-${tabName}`);
+            if (activeContent) {
+                activeContent.classList.remove('hidden');
+            }
+        }
+
+        // 绑定标签页点击事件
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.drawer-tab')) {
+                const tab = e.target.closest('.drawer-tab');
+                const tabName = tab.getAttribute('data-tab');
+                switchDrawerTab(tabName);
+            }
+        });
+
+        // 日历相关变量
+        let currentCalendarDate = new Date(2026, 0, 16); // 2026年1月16日
+
+        // 学习计划数据（示例）
+        const studyPlans = {
+            '2026-01-15': [
+                { subject: 'math', title: '高数基础第一章', time: '09:00-11:00' },
+                { subject: 'english', title: '英语单词背诵', time: '14:00-15:00' }
+            ],
+            '2026-01-16': [
+                { subject: 'math', title: '高数基础第二章', time: '09:00-11:00' },
+                { subject: 'politics', title: '政治马原学习', time: '15:00-17:00' }
+            ],
+            '2026-01-17': [
+                { subject: 'english', title: '英语长难句', time: '10:00-11:30' },
+                { subject: 'professional', title: '专业课408复习', time: '14:00-17:00' }
+            ],
+            '2026-01-18': [
+                { subject: 'math', title: '高数练习题', time: '09:00-11:00' },
+                { subject: 'english', title: '英语阅读训练', time: '14:00-16:00' }
+            ],
+            '2026-01-20': [
+                { subject: 'math', title: '高数基础第三章', time: '09:00-11:00' },
+                { subject: 'politics', title: '政治毛概学习', time: '15:00-17:00' }
+            ],
+            '2026-01-22': [
+                { subject: 'professional', title: '专业课数据结构', time: '09:00-12:00' },
+                { subject: 'english', title: '英语作文练习', time: '14:00-16:00' }
+            ]
+        };
+
+        // 初始化日历
+        function initCalendar() {
+            renderCalendar();
+        }
+
+        // 渲染日历
+        function renderCalendar() {
+            const year = currentCalendarDate.getFullYear();
+            const month = currentCalendarDate.getMonth();
+            
+            // 更新月份显示
+            document.getElementById('calendar-month-year').textContent = `${year}年${month + 1}月`;
+            
+            // 获取当月第一天和最后一天
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayOfWeek = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            
+            // 获取上个月的最后几天
+            const prevMonthLastDay = new Date(year, month, 0).getDate();
+            
+            const calendarGrid = document.getElementById('calendar-grid');
+            calendarGrid.innerHTML = '';
+            
+            // 星期标题
+            const weekDays = ['日', '一', '二', '三', '四', '五', '六'];
+            weekDays.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'calendar-day-header';
+                dayHeader.textContent = day;
+                calendarGrid.appendChild(dayHeader);
+            });
+            
+            // 上个月的日期
+            for (let i = firstDayOfWeek - 1; i >= 0; i--) {
+                const day = prevMonthLastDay - i;
+                const dateStr = formatDate(year, month - 1, day);
+                calendarGrid.appendChild(createDayElement(year, month - 1, day, true, dateStr));
+            }
+            
+            // 当月的日期
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = formatDate(year, month, day);
+                const isToday = year === today.getFullYear() && 
+                               month === today.getMonth() && 
+                               day === today.getDate();
+                calendarGrid.appendChild(createDayElement(year, month, day, false, dateStr, isToday));
+            }
+            
+            // 下个月的日期（填满42个格子）
+            const totalCells = calendarGrid.children.length - 7; // 减去星期标题
+            const remainingCells = 42 - totalCells;
+            for (let day = 1; day <= remainingCells; day++) {
+                const dateStr = formatDate(year, month + 1, day);
+                calendarGrid.appendChild(createDayElement(year, month + 1, day, true, dateStr));
+            }
+        }
+
+        // 创建日期元素
+        function createDayElement(year, month, day, isOtherMonth, dateStr, isToday = false) {
+            const dayDiv = document.createElement('div');
+            dayDiv.className = 'calendar-day';
+            if (isOtherMonth) dayDiv.classList.add('other-month');
+            if (isToday) dayDiv.classList.add('today');
+            
+            const dayNumber = document.createElement('div');
+            dayNumber.className = 'calendar-day-number';
+            dayNumber.textContent = day;
+            dayDiv.appendChild(dayNumber);
+            
+            // 添加学习计划
+            if (studyPlans[dateStr]) {
+                studyPlans[dateStr].forEach(plan => {
+                    const planItem = document.createElement('div');
+                    planItem.className = `calendar-plan-item ${plan.subject}`;
+                    planItem.textContent = plan.title;
+                    planItem.title = `${plan.title} (${plan.time})`;
+                    dayDiv.appendChild(planItem);
+                });
+            }
+            
+            return dayDiv;
+        }
+
+        // 格式化日期
+        function formatDate(year, month, day) {
+            const m = month + 1;
+            return `${year}-${String(m).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        }
+
+        // 切换月份
+        function changeMonth(delta) {
+            currentCalendarDate.setMonth(currentCalendarDate.getMonth() + delta);
+            renderCalendar();
         }
 
         function closeStudentDrawer() {

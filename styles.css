@@ -311,3 +311,135 @@ table thead th.sticky-column {
     background: #f8fafc;
     z-index: 20;
 }
+
+/* === 学员详情抽屉标签页样式 === */
+.drawer-tab {
+    transition: all 0.2s;
+}
+
+.drawer-tab:hover {
+    color: #2563eb;
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.drawer-tab.active {
+    color: #2563eb;
+    border-bottom: 2px solid #2563eb;
+}
+
+.drawer-tab-content {
+    min-height: 400px;
+}
+
+/* === 日历样式 === */
+.calendar-container {
+    max-width: 100%;
+}
+
+.calendar-header {
+    padding: 0 8px;
+}
+
+.calendar-nav-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #64748b;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.calendar-nav-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #2563eb;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.calendar-day-header {
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: white;
+    position: relative;
+    min-height: 60px;
+}
+
+.calendar-day:hover {
+    background: #f8fafc;
+    border-color: #2563eb;
+}
+
+.calendar-day.other-month {
+    opacity: 0.3;
+    background: #f8fafc;
+}
+
+.calendar-day.today {
+    background: #eff6ff;
+    border-color: #2563eb;
+    border-width: 2px;
+}
+
+.calendar-day-number {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+.calendar-day.today .calendar-day-number {
+    color: #2563eb;
+}
+
+.calendar-plan-item {
+    font-size: 9px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.calendar-plan-item.math {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.calendar-plan-item.english {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.calendar-plan-item.politics {
+    background: #fce7f3;
+    color: #9f1239;
+}
+
+.calendar-plan-item.professional {
+    background: #d1fae5;
+    color: #065f46;
+}
