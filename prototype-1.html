@@ -28,6 +28,9 @@
                 <div onclick="showPage('task')" id="nav-task" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
                     <i class="fas fa-tasks w-5"></i><span class="font-semibold text-sm">任务管理</span>
                 </div>
+                <div onclick="showPage('performance')" id="nav-performance" class="sidebar-item flex items-center gap-4 px-6 py-4 cursor-pointer">
+                    <i class="fas fa-chart-bar w-5"></i><span class="font-semibold text-sm">我的绩效</span>
+                </div>
             </nav>
             <div class="m-6 p-4 bg-white/5 rounded-2xl border border-white/10 flex items-center gap-3">
                 <img src="avatar.jpeg" class="w-9 h-9 rounded-xl">
@@ -448,7 +451,7 @@
                             <h3 class="text-sm font-black text-slate-800 mb-6 flex items-center gap-2">
                                 <i class="fas fa-chart-line text-orange-600"></i> 按任务状态统计
                             </h3>
-                            <div class="grid grid-cols-2 gap-4">
+                            <div class="grid grid-cols-4 gap-4">
                                 <div class="bg-red-50 p-4 rounded-2xl border border-red-100">
                                     <p class="text-[9px] text-red-400 font-bold uppercase mb-2">已逾期</p>
                                     <p class="text-2xl font-black text-red-700">8</p>
@@ -629,12 +632,219 @@
                             </table>
                         </div>
                     </div>
+                </div>`,
+            performance: `
+                <div class="animate-up">
+                    
+                    <!-- 正向指标 -->
+                    <div class="mb-8">
+                        <h2 class="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-arrow-up text-green-600"></i> 正向指标
+                        </h2>
+                        <div class="grid grid-cols-4 gap-6">
+                            <!-- 业绩 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">业绩</p>
+                                    <i class="fas fa-yen-sign text-blue-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">¥82,400</p>
+                                    <p class="text-xs text-slate-400">目标：¥120,000</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-blue-600 h-full" style="width: 68.7%"></div>
+                                </div>
+                                <p class="text-xs text-blue-600 font-bold mt-2">完成率：68.7%</p>
+                            </div>
+                            
+                            <!-- 亲密度 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">亲密度</p>
+                                    <i class="fas fa-heart text-pink-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">85</p>
+                                    <p class="text-xs text-slate-400">满分：100</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-pink-600 h-full" style="width: 85%"></div>
+                                </div>
+                                <p class="text-xs text-pink-600 font-bold mt-2">优秀</p>
+                            </div>
+                            
+                            <!-- 非工作时间回复时效 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">非工作时间回复时效</p>
+                                    <i class="fas fa-clock text-purple-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">15</p>
+                                    <p class="text-xs text-slate-400">分钟 32 秒</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-purple-600 h-full" style="width: 75%"></div>
+                                </div>
+                                <p class="text-xs text-purple-600 font-bold mt-2">良好</p>
+                            </div>
+                            
+                            <!-- 工作时间回复时效 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">工作时间回复时效</p>
+                                    <i class="fas fa-clock text-indigo-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">8</p>
+                                    <p class="text-xs text-slate-400">分钟 15 秒</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-indigo-600 h-full" style="width: 90%"></div>
+                                </div>
+                                <p class="text-xs text-indigo-600 font-bold mt-2">优秀</p>
+                            </div>
+                            
+                            <!-- 非工作日首call率 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">非工作日首call率</p>
+                                    <i class="fas fa-phone text-teal-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">92.5%</p>
+                                    <p class="text-xs text-slate-400">目标：90%</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-teal-600 h-full" style="width: 92.5%"></div>
+                                </div>
+                                <p class="text-xs text-teal-600 font-bold mt-2">超额完成</p>
+                            </div>
+                            
+                            <!-- 工作日首call率 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">工作日首call率</p>
+                                    <i class="fas fa-phone text-cyan-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">96.8%</p>
+                                    <p class="text-xs text-slate-400">目标：95%</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-cyan-600 h-full" style="width: 96.8%"></div>
+                                </div>
+                                <p class="text-xs text-cyan-600 font-bold mt-2">超额完成</p>
+                            </div>
+                            
+                            <!-- 新生加微率 -->
+                            <div class="glass-card p-6 rounded-3xl">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">新生加微率</p>
+                                    <i class="fas fa-user-plus text-emerald-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-slate-800 mb-1">88.3%</p>
+                                    <p class="text-xs text-slate-400">目标：85%</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-emerald-600 h-full" style="width: 88.3%"></div>
+                                </div>
+                                <p class="text-xs text-emerald-600 font-bold mt-2">超额完成</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 负向指标 -->
+                    <div class="mb-8">
+                        <h2 class="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-arrow-down text-red-600"></i> 负向指标
+                        </h2>
+                        <div class="grid grid-cols-4 gap-6">
+                            <!-- 退费率 -->
+                            <div class="glass-card p-6 rounded-3xl border-red-100">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-red-400 font-bold uppercase tracking-widest">退费率</p>
+                                    <i class="fas fa-exclamation-triangle text-red-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-red-600 mb-1">2.5%</p>
+                                    <p class="text-xs text-slate-400">目标：&lt;3%</p>
+                                </div>
+                                <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                    <div class="bg-red-600 h-full" style="width: 83.3%"></div>
+                                </div>
+                                <p class="text-xs text-red-600 font-bold mt-2">达标</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 额外加减分项 -->
+                    <div>
+                        <h2 class="text-lg font-black text-slate-800 mb-6 flex items-center gap-2">
+                            <i class="fas fa-star text-yellow-600"></i> 额外加减分项
+                        </h2>
+                        <div class="grid grid-cols-4 gap-6">
+                            <!-- 好评 -->
+                            <div class="glass-card p-6 rounded-3xl border-green-100">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-green-400 font-bold uppercase tracking-widest">好评</p>
+                                    <i class="fas fa-thumbs-up text-green-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-green-600 mb-1">+12</p>
+                                    <p class="text-xs text-slate-400">本月获得</p>
+                                </div>
+                                <p class="text-xs text-green-600 font-bold">加分项</p>
+                            </div>
+                            
+                            <!-- 承接换二讲 -->
+                            <div class="glass-card p-6 rounded-3xl border-blue-100">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">承接换二讲</p>
+                                    <i class="fas fa-handshake text-blue-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-blue-600 mb-1">+5</p>
+                                    <p class="text-xs text-slate-400">本月承接</p>
+                                </div>
+                                <p class="text-xs text-blue-600 font-bold">加分项</p>
+                            </div>
+                            
+                            <!-- 换二讲 -->
+                            <div class="glass-card p-6 rounded-3xl border-orange-100">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-orange-400 font-bold uppercase tracking-widest">换二讲</p>
+                                    <i class="fas fa-exchange-alt text-orange-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-orange-600 mb-1">-2</p>
+                                    <p class="text-xs text-slate-400">本月发生</p>
+                                </div>
+                                <p class="text-xs text-orange-600 font-bold">减分项</p>
+                            </div>
+                            
+                            <!-- 客诉 -->
+                            <div class="glass-card p-6 rounded-3xl border-red-100">
+                                <div class="flex items-center justify-between mb-4">
+                                    <p class="text-[10px] text-red-400 font-bold uppercase tracking-widest">客诉</p>
+                                    <i class="fas fa-exclamation-circle text-red-600"></i>
+                                </div>
+                                <div class="mb-4">
+                                    <p class="text-3xl font-black text-red-600 mb-1">-1</p>
+                                    <p class="text-xs text-slate-400">本月发生</p>
+                                </div>
+                                <p class="text-xs text-red-600 font-bold">减分项</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>`
         };
 
         function showPage(pageId) {
             pcContent.innerHTML = pages[pageId] || `<div class="p-20 text-center text-slate-300 font-bold uppercase tracking-widest">Page In Development</div>`;
-            const titles = {home:'首页看板', student:'学员管理', task:'任务管理'};
+            const titles = {home:'首页看板', student:'学员管理', task:'任务管理', performance:'我的绩效'};
             pageTitle.innerText = titles[pageId] || '系统模块';
             document.querySelectorAll('.sidebar-item').forEach(el => el.classList.remove('nav-active'));
             const navEl = document.getElementById('nav-' + pageId);
